@@ -37,6 +37,9 @@ export function Layout() {
   const location = useLocation();
   const isPlanning = location.pathname === '/planning';
   
+  // Show floating button only on Dashboard and Planning pages
+  const showFloatingButton = location.pathname === '/' || location.pathname === '/planning';
+  
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Aqui você pode implementar a lógica para salvar a transação
@@ -121,16 +124,17 @@ export function Layout() {
       </div>
 
       {/* Floating Action Button - Add Transaction | Botão Flutuante - Adicionar Transação */}
-      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogTrigger asChild>
-            <Button
-            size="icon"
-            className="fixed bottom-20 right-4 md:bottom-8 h-14 w-14 rounded-full shadow-strong z-40 bg-gradient-primary hover:shadow-green transition-all hover:scale-105"
-            aria-label={isPlanning ? "Adicionar nova meta" : "Adicionar nova transação"}
-          >
-            <Plus className="h-6 w-6" />
-          </Button>
-        </DialogTrigger>
+      {showFloatingButton && (
+        <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+          <DialogTrigger asChild>
+              <Button
+              size="icon"
+              className="fixed bottom-20 right-4 md:bottom-8 h-14 w-14 rounded-full shadow-strong z-40 bg-gradient-primary hover:shadow-green transition-all hover:scale-105"
+              aria-label={isPlanning ? "Adicionar nova meta" : "Adicionar nova transação"}
+            >
+              <Plus className="h-6 w-6" />
+            </Button>
+          </DialogTrigger>
         <DialogContent className="sm:max-w-md max-w-[calc(100vw-2rem)] max-h-[80vh] overflow-y-auto mx-auto rounded-2xl border-0 shadow-2xl bg-background/95 backdrop-blur-md">
           <DialogHeader className="space-y-2">
             <DialogTitle className="text-lg font-semibold text-center bg-gradient-primary bg-clip-text text-transparent">
@@ -308,7 +312,8 @@ export function Layout() {
             </div>
           </form>
         </DialogContent>
-      </Dialog>
+        </Dialog>
+      )}
     </div>
   );
 }
