@@ -10,7 +10,7 @@ import {
   Settings,
   Plus
 } from 'lucide-react';
-import focusLogo from '@/assets/focus-logo-new.png';
+import focusLogo from '/lovable-uploads/922516b4-9d12-41b8-8093-6ccd25a59adc.png';
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { NavLink } from 'react-router-dom';

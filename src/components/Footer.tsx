@@ -2,7 +2,7 @@
 // Simple footer with useful links | Rodapé simples com links úteis
 
 import { Heart } from 'lucide-react';
-import focusLogo from '@/assets/focus-logo-new.png';
+import focusLogo from '/lovable-uploads/922516b4-9d12-41b8-8093-6ccd25a59adc.png';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
