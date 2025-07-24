@@ -46,7 +46,11 @@ export default function Dashboard() {
       </div>
 
       {/* Balance Card | Cartão de Saldo */}
-      <Card className="bg-gradient-primary text-primary-foreground shadow-green">
+      <Card className={`text-primary-foreground shadow-strong ${
+        balance >= 0 
+          ? 'bg-gradient-primary shadow-green' 
+          : 'bg-gradient-to-r from-red-400 to-red-500 shadow-red-200'
+      }`}>
         <CardContent className="p-6">
           <div className="flex items-center justify-between mb-2">
             <span className="text-primary-foreground/80 text-sm">Saldo atual</span>
@@ -60,12 +64,23 @@ export default function Dashboard() {
               {showBalance ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
             </Button>
           </div>
-          <div className="text-3xl md:text-4xl font-bold">
+          <div className={`text-3xl md:text-4xl font-bold ${
+            balance >= 0 ? 'text-white' : 'text-white'
+          }`}>
             {showBalance ? formatCurrency(balance) : '••••••'}
           </div>
           <div className="flex items-center mt-3 text-primary-foreground/80">
-            <TrendingUp className="h-4 w-4 mr-1" />
-            <span className="text-sm">+12.5% este mês</span>
+            {balance >= 0 ? (
+              <>
+                <TrendingUp className="h-4 w-4 mr-1" />
+                <span className="text-sm">+12.5% este mês</span>
+              </>
+            ) : (
+              <>
+                <TrendingDown className="h-4 w-4 mr-1" />
+                <span className="text-sm">Saldo negativo</span>
+              </>
+            )}
           </div>
         </CardContent>
       </Card>
