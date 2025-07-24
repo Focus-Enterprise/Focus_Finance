@@ -254,16 +254,7 @@ export default function Planning() {
 
       {/* Goals List | Lista de Metas */}
       <div className="space-y-4">
-        <div className="flex justify-between items-center">
-          <h2 className="text-xl font-semibold">Suas Metas</h2>
-          <Button 
-            onClick={() => setIsAddModalOpen(true)}
-            className="bg-gradient-primary hover:opacity-90"
-          >
-            <Plus className="h-4 w-4 mr-2" />
-            Nova Meta
-          </Button>
-        </div>
+        <h2 className="text-xl font-semibold">Suas Metas</h2>
         <div className="grid gap-4">
           {goals.map((goal) => {
             const progress = getProgressPercentage(goal.currentAmount, goal.targetAmount);
