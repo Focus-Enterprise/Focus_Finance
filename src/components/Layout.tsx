@@ -50,7 +50,9 @@ export function Layout() {
     e.preventDefault();
     
     if (isPlanning) {
-      console.log('Nova meta adicionada');
+      // Trigger the Planning modal instead of handling here
+      const event = new CustomEvent('openPlanningModal');
+      window.dispatchEvent(event);
       setIsModalOpen(false);
       return;
     }

@@ -1,7 +1,7 @@
 // Planning Page | Página de Planejamento
 // Financial goals, savings and future predictions | Metas financeiras, economias e previsões futuras
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useVisibility } from '@/contexts/VisibilityContext';
 import { 
   Target, 
@@ -191,6 +191,16 @@ export default function Planning() {
       priority: ''
     });
   };
+
+  // Listen for Planning modal trigger from Layout
+  useEffect(() => {
+    const handleOpenModal = () => {
+      setIsAddModalOpen(true);
+    };
+
+    window.addEventListener('openPlanningModal', handleOpenModal);
+    return () => window.removeEventListener('openPlanningModal', handleOpenModal);
+  }, []);
 
   const totalTargetAmount = goals.reduce((sum, goal) => sum + goal.targetAmount, 0);
   const totalCurrentAmount = goals.reduce((sum, goal) => sum + goal.currentAmount, 0);
@@ -595,15 +605,6 @@ export default function Planning() {
         </DialogContent>
       </Dialog>
 
-      {/* Floating Action Button */}
-      <Button
-        onClick={() => setIsAddModalOpen(true)}
-        className="fixed bottom-6 right-6 h-14 w-14 rounded-full bg-gradient-primary hover:opacity-90 shadow-strong z-50"
-        size="icon"
-        aria-label="Adicionar nova meta"
-      >
-        <Plus className="h-6 w-6" />
-      </Button>
     </div>
   );
 }
