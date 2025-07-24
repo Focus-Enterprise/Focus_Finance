@@ -127,7 +127,7 @@ export function Layout() {
             <Plus className="h-6 w-6" />
           </Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-md rounded-2xl border-0 shadow-2xl bg-background/95 backdrop-blur-md">
+        <DialogContent className="sm:max-w-md mx-4 rounded-2xl border-0 shadow-2xl bg-background/95 backdrop-blur-md">
           <DialogHeader className="space-y-3">
             <DialogTitle className="text-xl font-semibold text-center bg-gradient-primary bg-clip-text text-transparent">
               Nova Transação
@@ -191,7 +191,7 @@ export function Layout() {
                 type="button" 
                 variant="outline"
                 onClick={() => setIsModalOpen(false)}
-                className="flex-1 rounded-xl border-border/50 hover:bg-accent"
+                className="flex-1 rounded-xl border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700 hover:border-red-300 dark:border-red-800 dark:text-red-400 dark:hover:bg-red-950 dark:hover:text-red-300"
               >
                 Cancelar
               </Button>
