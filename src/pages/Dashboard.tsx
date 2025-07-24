@@ -178,10 +178,10 @@ export default function Dashboard() {
                 <div className="text-right">
                    <p className={`font-semibold ${
                      transaction.type === 'income' ? 'text-success' : 'text-destructive'
-                   }`}>
-                     {transaction.type === 'income' ? '+' : '-'}
-                     {formatCurrency(transaction.amount)}
-                   </p>
+                    }`}>
+                      {transaction.type === 'income' ? '+' : '-'}
+                      {showBalance ? formatCurrency(transaction.amount) : '••••••'}
+                    </p>
                   <p className="text-sm text-muted-foreground">
                     {new Date(transaction.date).toLocaleDateString('pt-BR')}
                   </p>
