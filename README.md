@@ -1,73 +1,135 @@
-# Welcome to your Lovable project
+# 💚 Focus Finance - Finanças Pessoais
 
-## Project info
+> **Aplicativo moderno e minimalista para gerenciar suas finanças pessoais com inteligência e simplicidade.**
 
-**URL**: https://lovable.dev/projects/25fa94a7-c9a6-4b5a-8768-9b9c99d80fd7
+## 🎯 Sobre o Focus
 
-## How can I edit this code?
+O Focus é um SaaS de finanças pessoais desenvolvido com foco na **usabilidade**, **performance** e **design moderno**. Inspirado em aplicativos como Nubank, Mobills e Inter, oferece uma experiência intuitiva para gerenciar receitas, despesas, metas e relatórios financeiros.
 
-There are several ways of editing your application.
+### ✨ Características Principais
 
-**Use Lovable**
+- 📱 **Mobile-First**: Interface responsiva preparada para se tornar app Android
+- 🎨 **Design Minimalista**: Interface clean com cores verde sustentabilidade
+- ♿ **Acessibilidade**: Suporte completo a leitores de tela e navegação por teclado
+- 🌙 **Dark/Light Mode**: Alternância automática baseada na preferência do sistema
+- 📊 **Relatórios Interativos**: Gráficos e análises detalhadas das finanças
+- 🎯 **Metas Financeiras**: Sistema completo de planejamento e acompanhamento
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/25fa94a7-c9a6-4b5a-8768-9b9c99d80fd7) and start prompting.
+## 🚀 Funcionalidades
 
-Changes made via Lovable will be committed automatically to this repo.
+### 📊 Dashboard
+- Visão geral de saldo, receitas e despesas
+- Gráficos de progresso mensal
+- Transações recentes
+- Score de saúde financeira
 
-**Use your preferred IDE**
+### 🎯 Planejamento
+- Criação e acompanhamento de metas financeiras
+- Sistema de prioridades
+- Calculadora de progresso
+- Previsões e simulações
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### 💰 Transações
+- Cadastro de receitas e despesas
+- Categorização inteligente
+- Filtros avançados de busca
+- Histórico completo
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### 📈 Relatórios
+- Gráficos interativos (receitas vs despesas)
+- Análise por categorias
+- Tendências mensais
+- Score de saúde financeira
+- Exportação em PDF
 
-Follow these steps:
+### ⚙️ Configurações
+- Perfil do usuário
+- Preferências de notificação
+- Alternância de tema
+- Suporte e contato
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## 🛠️ Tecnologias
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+- **Frontend**: React 18 + TypeScript
+- **Styling**: Tailwind CSS + shadcn/ui
+- **Build**: Vite
+- **Icons**: Lucide React
+- **Theme**: Sistema próprio com CSS Variables
+- **Routing**: React Router DOM
+- **State**: React Hooks + Context API
 
-# Step 3: Install the necessary dependencies.
-npm i
+## 🎨 Design System
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+### Cores Principais
+- **Primária**: `#00bf63` (Verde Focus)
+- **Secundária**: `#7ed957` (Verde Claro)
+- **Fundo Claro**: `#ffffff`
+- **Fundo Escuro**: `#121212`
+
+### Componentes
+- Sistema de tokens CSS customizado
+- Componentes shadcn/ui personalizados
+- Gradientes e sombras temáticas
+- Animações suaves e responsivas
+
+## 🚀 Como executar
+
+### Pré-requisitos
+- Node.js 18+ 
+- npm ou yarn
+
+### Instalação
+```bash
+# Clone o repositório
+git clone <URL_DO_REPOSITORIO>
+
+# Entre no diretório
+cd focus-finance
+
+# Instale as dependências
+npm install
+
+# Execute em modo desenvolvimento
 npm run dev
+
+# Build para produção
+npm run build
 ```
 
-**Edit a file directly in GitHub**
+## 📱 Preparação para Mobile
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+O projeto está preparado para ser convertido em app Android usando:
+- **Capacitor**: Para build nativo
+- **PWA**: Service Worker e manifest
+- **Responsive Design**: Mobile-first com breakpoints otimizados
 
-**Use GitHub Codespaces**
+## ♿ Acessibilidade
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+- ✅ Suporte a leitores de tela (ARIA)
+- ✅ Navegação por teclado
+- ✅ Alto contraste em modo escuro
+- ✅ Textos alternativos em imagens
+- ✅ Foco visual adequado
 
-## What technologies are used for this project?
+## 🔧 Configuração Futura
 
-This project is built with:
+O projeto está preparado para receber:
+- 🔌 APIs externas (bancárias, câmbio)
+- 🔐 Autenticação com Supabase
+- 📧 Sistema de notificações
+- 🌍 Internacionalização (i18n)
+- 📱 Push notifications
+- 💾 Sincronização em nuvem
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## 📞 Suporte
 
-## How can I deploy this project?
+- **WhatsApp**: (11) 95911-7279
+- **E-mail**: focus.prise@gmail.com
 
-Simply open [Lovable](https://lovable.dev/projects/25fa94a7-c9a6-4b5a-8768-9b9c99d80fd7) and click on Share -> Publish.
+## 📄 Licença
 
-## Can I connect a custom domain to my Lovable project?
+Este projeto foi desenvolvido com foco na experiência do usuário e boas práticas de desenvolvimento. Todos os direitos reservados.
 
-Yes, you can!
+---
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+**Desenvolvido com ❤️ para ajudar você a organizar suas finanças**

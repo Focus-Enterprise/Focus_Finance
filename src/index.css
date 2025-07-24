@@ -2,41 +2,70 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
+/* Focus Finance App Design System | Sistema de Design do Focus Finance
+All colors in HSL format for better theme management | Todas as cores em formato HSL para melhor gerenciamento de temas
 */
 
 @layer base {
   :root {
+    /* Focus Brand Colors | Cores da Marca Focus */
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 0 0% 7%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 0 0% 7%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 0 0% 7%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Focus Primary Green | Verde Primário do Focus */
+    --primary: 147 100% 38%; /* #00bf63 */
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 147 100% 45%;
+    --primary-dark: 147 100% 30%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Focus Secondary Green | Verde Secundário do Focus */
+    --secondary: 94 64% 71%; /* #7ed957 */
+    --secondary-foreground: 0 0% 7%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Neutral Grays | Cinzas Neutros */
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 147 50% 95%;
+    --accent-foreground: 147 100% 25%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Status Colors | Cores de Status */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --success: 147 100% 38%;
+    --success-foreground: 0 0% 100%;
+    
+    --warning: 45 93% 58%;
+    --warning-foreground: 0 0% 7%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* UI Elements | Elementos de UI */
+    --border: 0 0% 90%;
+    --input: 0 0% 96%;
+    --ring: 147 100% 38%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
+
+    /* Focus Gradients | Gradientes do Focus */
+    --gradient-primary: linear-gradient(135deg, hsl(147, 100%, 38%) 0%, hsl(94, 64%, 71%) 100%);
+    --gradient-success: linear-gradient(135deg, hsl(147, 100%, 45%) 0%, hsl(147, 80%, 55%) 100%);
+    --gradient-subtle: linear-gradient(135deg, hsl(147, 30%, 97%) 0%, hsl(94, 30%, 95%) 100%);
+
+    /* Shadows | Sombras */
+    --shadow-soft: 0 2px 8px hsla(147, 30%, 20%, 0.08);
+    --shadow-medium: 0 4px 16px hsla(147, 30%, 20%, 0.12);
+    --shadow-strong: 0 8px 32px hsla(147, 30%, 20%, 0.16);
+    --shadow-green: 0 4px 16px hsla(147, 100%, 38%, 0.15);
+
+    /* Animations | Animações */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-spring: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 
     --sidebar-background: 0 0% 98%;
 
@@ -56,33 +85,43 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    /* Focus Dark Theme | Tema Escuro do Focus */
+    --background: 0 0% 7%; /* #121212 */
+    --foreground: 0 0% 100%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 0 0% 10%;
+    --card-foreground: 0 0% 100%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 100%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    /* Keep Focus Green in Dark Mode | Manter Verde do Focus no Modo Escuro */
+    --primary: 147 100% 38%; /* #00bf63 */
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 147 100% 45%;
+    --primary-dark: 147 100% 30%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 94 64% 71%; /* #7ed957 */
+    --secondary-foreground: 0 0% 7%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 65%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 147 50% 15%;
+    --accent-foreground: 147 100% 70%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --success: 147 100% 38%;
+    --success-foreground: 0 0% 100%;
+    
+    --warning: 45 93% 58%;
+    --warning-foreground: 0 0% 7%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --border: 0 0% 20%;
+    --input: 0 0% 15%;
+    --ring: 147 100% 38%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
