@@ -8,8 +8,8 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   const footerLinks = [
-    { label: 'Termos de Uso', href: '#' },
-    { label: 'Política de Privacidade', href: '#' },
+    { label: 'Termos de Uso', href: '/tutorial' },
+    { label: 'Política de Privacidade', href: '/tutorial' },
     { label: "Aprenda a usar o Focus", href: "/tutorial" }
   ];
 
