@@ -15,6 +15,10 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 export default function Planning() {
   // Mock data for goals | Dados simulados para metas
@@ -56,6 +60,18 @@ export default function Planning() {
       priority: 'low'
     }
   ]);
+
+  // Estado para edição
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editingGoal, setEditingGoal] = useState(null);
+  const [editForm, setEditForm] = useState({
+    title: '',
+    targetAmount: '',
+    currentAmount: '',
+    deadline: '',
+    category: '',
+    priority: ''
+  });
 
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat('pt-BR', {
@@ -99,8 +115,40 @@ export default function Planning() {
   };
 
   const handleEditGoal = (goalId: number) => {
-    console.log('Editando meta:', goalId);
-    // Aqui você pode implementar a lógica de edição
+    const goalToEdit = goals.find(goal => goal.id === goalId);
+    if (goalToEdit) {
+      setEditingGoal(goalToEdit);
+      setEditForm({
+        title: goalToEdit.title,
+        targetAmount: goalToEdit.targetAmount.toString(),
+        currentAmount: goalToEdit.currentAmount.toString(),
+        deadline: goalToEdit.deadline,
+        category: goalToEdit.category,
+        priority: goalToEdit.priority
+      });
+      setIsEditModalOpen(true);
+    }
+  };
+
+  const handleSaveEdit = () => {
+    if (editingGoal) {
+      const updatedGoals = goals.map(goal => 
+        goal.id === editingGoal.id 
+          ? {
+              ...goal,
+              title: editForm.title,
+              targetAmount: parseFloat(editForm.targetAmount),
+              currentAmount: parseFloat(editForm.currentAmount),
+              deadline: editForm.deadline,
+              category: editForm.category,
+              priority: editForm.priority
+            }
+          : goal
+      );
+      setGoals(updatedGoals);
+      setIsEditModalOpen(false);
+      setEditingGoal(null);
+    }
   };
 
   const handleDeleteGoal = (goalId: number) => {
@@ -287,6 +335,116 @@ export default function Planning() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Modal de Edição */}
+      <Dialog open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
+        <DialogContent className="sm:max-w-md max-w-[calc(100vw-2rem)] mx-auto rounded-2xl border-0 shadow-2xl bg-background/95 backdrop-blur-md">
+          <DialogHeader className="space-y-3">
+            <DialogTitle className="text-xl font-semibold text-center bg-gradient-primary bg-clip-text text-transparent">
+              Editar Meta
+            </DialogTitle>
+          </DialogHeader>
+          
+          <div className="space-y-6">
+            <div className="space-y-2">
+              <Label htmlFor="edit-title" className="text-sm font-medium">Título da Meta</Label>
+              <Input 
+                id="edit-title"
+                value={editForm.title}
+                onChange={(e) => setEditForm({...editForm, title: e.target.value})}
+                placeholder="Ex: Viagem para Europa, Reserva de Emergência..."
+                className="rounded-xl border-border/50 focus:border-primary"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="edit-targetAmount" className="text-sm font-medium">Valor Alvo</Label>
+              <Input 
+                id="edit-targetAmount"
+                type="number"
+                step="0.01"
+                value={editForm.targetAmount}
+                onChange={(e) => setEditForm({...editForm, targetAmount: e.target.value})}
+                placeholder="0,00"
+                className="rounded-xl border-border/50 focus:border-primary"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="edit-currentAmount" className="text-sm font-medium">Valor Atual</Label>
+              <Input 
+                id="edit-currentAmount"
+                type="number"
+                step="0.01"
+                value={editForm.currentAmount}
+                onChange={(e) => setEditForm({...editForm, currentAmount: e.target.value})}
+                placeholder="0,00"
+                className="rounded-xl border-border/50 focus:border-primary"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="edit-deadline" className="text-sm font-medium">Data Limite</Label>
+              <Input 
+                id="edit-deadline"
+                type="date"
+                value={editForm.deadline}
+                onChange={(e) => setEditForm({...editForm, deadline: e.target.value})}
+                className="rounded-xl border-border/50 focus:border-primary"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="edit-category" className="text-sm font-medium">Categoria</Label>
+              <Select value={editForm.category} onValueChange={(value) => setEditForm({...editForm, category: value})}>
+                <SelectTrigger className="rounded-xl border-border/50 focus:border-primary">
+                  <SelectValue placeholder="Selecione uma categoria" />
+                </SelectTrigger>
+                <SelectContent className="rounded-xl">
+                  <SelectItem value="Viagem">🌎 Viagem</SelectItem>
+                  <SelectItem value="Segurança">🛡️ Segurança</SelectItem>
+                  <SelectItem value="Tecnologia">💻 Tecnologia</SelectItem>
+                  <SelectItem value="Educação">📚 Educação</SelectItem>
+                  <SelectItem value="Casa">🏠 Casa</SelectItem>
+                  <SelectItem value="Veículo">🚗 Veículo</SelectItem>
+                  <SelectItem value="Investimento">📈 Investimento</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="edit-priority" className="text-sm font-medium">Prioridade</Label>
+              <Select value={editForm.priority} onValueChange={(value) => setEditForm({...editForm, priority: value})}>
+                <SelectTrigger className="rounded-xl border-border/50 focus:border-primary">
+                  <SelectValue placeholder="Selecione a prioridade" />
+                </SelectTrigger>
+                <SelectContent className="rounded-xl">
+                  <SelectItem value="high">🔴 Alta</SelectItem>
+                  <SelectItem value="medium">🟡 Média</SelectItem>
+                  <SelectItem value="low">🟢 Baixa</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="flex gap-3 pt-4">
+              <Button 
+                type="button" 
+                variant="outline"
+                onClick={() => setIsEditModalOpen(false)}
+                className="flex-1 rounded-xl border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700 hover:border-red-300 dark:border-red-800 dark:text-red-400 dark:hover:bg-red-950 dark:hover:text-red-300"
+              >
+                Cancelar
+              </Button>
+              <Button 
+                onClick={handleSaveEdit}
+                className="flex-1 rounded-xl bg-gradient-primary hover:opacity-90 transition-opacity"
+              >
+                Salvar
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
