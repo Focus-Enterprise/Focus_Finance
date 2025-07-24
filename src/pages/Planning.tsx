@@ -2,6 +2,7 @@
 // Financial goals, savings and future predictions | Metas financeiras, economias e previsões futuras
 
 import { useState } from 'react';
+import { useVisibility } from '@/contexts/VisibilityContext';
 import { 
   Target, 
   PiggyBank, 
@@ -21,6 +22,8 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 export default function Planning() {
+  const { showBalance } = useVisibility();
+  
   // Mock data for goals | Dados simulados para metas
   const [goals, setGoals] = useState([
     {
@@ -61,10 +64,20 @@ export default function Planning() {
     }
   ]);
 
-  // Estado para edição
+  // Estado para edição e nova meta
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [editingGoal, setEditingGoal] = useState(null);
   const [editForm, setEditForm] = useState({
+    title: '',
+    targetAmount: '',
+    currentAmount: '',
+    deadline: '',
+    category: '',
+    priority: ''
+  });
+
+  const [newGoalForm, setNewGoalForm] = useState({
     title: '',
     targetAmount: '',
     currentAmount: '',
@@ -157,6 +170,28 @@ export default function Planning() {
     console.log('Meta excluída:', goalId);
   };
 
+  const handleAddGoal = () => {
+    const newGoal = {
+      id: Math.max(...goals.map(g => g.id), 0) + 1,
+      title: newGoalForm.title,
+      targetAmount: parseFloat(newGoalForm.targetAmount),
+      currentAmount: parseFloat(newGoalForm.currentAmount) || 0,
+      deadline: newGoalForm.deadline,
+      category: newGoalForm.category,
+      priority: newGoalForm.priority
+    };
+    setGoals([...goals, newGoal]);
+    setIsAddModalOpen(false);
+    setNewGoalForm({
+      title: '',
+      targetAmount: '',
+      currentAmount: '',
+      deadline: '',
+      category: '',
+      priority: ''
+    });
+  };
+
   const totalTargetAmount = goals.reduce((sum, goal) => sum + goal.targetAmount, 0);
   const totalCurrentAmount = goals.reduce((sum, goal) => sum + goal.currentAmount, 0);
   const overallProgress = (totalCurrentAmount / totalTargetAmount) * 100;
@@ -181,7 +216,9 @@ export default function Planning() {
             <Target className="h-4 w-4 text-primary" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{formatCurrency(totalTargetAmount)}</div>
+            <div className="text-2xl font-bold">
+              {showBalance ? formatCurrency(totalTargetAmount) : '••••••'}
+            </div>
             <p className="text-xs text-muted-foreground">
               {goals.length} metas ativas
             </p>
@@ -194,7 +231,9 @@ export default function Planning() {
             <PiggyBank className="h-4 w-4 text-success" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-success">{formatCurrency(totalCurrentAmount)}</div>
+            <div className="text-2xl font-bold text-success">
+              {showBalance ? formatCurrency(totalCurrentAmount) : '••••••'}
+            </div>
             <p className="text-xs text-muted-foreground">
               {overallProgress.toFixed(1)}% do total
             </p>
@@ -215,7 +254,16 @@ export default function Planning() {
 
       {/* Goals List | Lista de Metas */}
       <div className="space-y-4">
-        <h2 className="text-xl font-semibold">Suas Metas</h2>
+        <div className="flex justify-between items-center">
+          <h2 className="text-xl font-semibold">Suas Metas</h2>
+          <Button 
+            onClick={() => setIsAddModalOpen(true)}
+            className="bg-gradient-primary hover:opacity-90"
+          >
+            <Plus className="h-4 w-4 mr-2" />
+            Nova Meta
+          </Button>
+        </div>
         <div className="grid gap-4">
           {goals.map((goal) => {
             const progress = getProgressPercentage(goal.currentAmount, goal.targetAmount);
@@ -266,10 +314,10 @@ export default function Planning() {
                         />
                         <div className="flex justify-between text-sm">
                           <span className="text-success font-medium">
-                            {formatCurrency(goal.currentAmount)}
+                            {showBalance ? formatCurrency(goal.currentAmount) : '••••••'}
                           </span>
                           <span className="text-muted-foreground">
-                            de {formatCurrency(goal.targetAmount)}
+                            de {showBalance ? formatCurrency(goal.targetAmount) : '••••••'}
                           </span>
                         </div>
                       </div>
@@ -440,6 +488,116 @@ export default function Planning() {
                 className="flex-1 rounded-xl bg-gradient-primary hover:opacity-90 transition-opacity"
               >
                 Salvar
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Modal de Nova Meta */}
+      <Dialog open={isAddModalOpen} onOpenChange={setIsAddModalOpen}>
+        <DialogContent className="sm:max-w-md max-w-[calc(100vw-2rem)] max-h-[80vh] overflow-y-auto mx-auto rounded-2xl border-0 shadow-2xl bg-background/95 backdrop-blur-md">
+          <DialogHeader className="space-y-2">
+            <DialogTitle className="text-lg font-semibold text-center bg-gradient-primary bg-clip-text text-transparent">
+              Nova Meta
+            </DialogTitle>
+          </DialogHeader>
+          
+          <div className="space-y-4">
+            <div className="space-y-1">
+              <Label htmlFor="new-title" className="text-sm font-medium">Título da Meta</Label>
+              <Input 
+                id="new-title"
+                value={newGoalForm.title}
+                onChange={(e) => setNewGoalForm({...newGoalForm, title: e.target.value})}
+                placeholder="Ex: Viagem para Europa..."
+                className="rounded-xl border-border/50 focus:border-primary h-9"
+              />
+            </div>
+
+            <div className="space-y-1">
+              <Label htmlFor="new-targetAmount" className="text-sm font-medium">Valor Alvo</Label>
+              <Input 
+                id="new-targetAmount"
+                type="number"
+                step="0.01"
+                value={newGoalForm.targetAmount}
+                onChange={(e) => setNewGoalForm({...newGoalForm, targetAmount: e.target.value})}
+                placeholder="0,00"
+                className="rounded-xl border-border/50 focus:border-primary h-9"
+              />
+            </div>
+
+            <div className="space-y-1">
+              <Label htmlFor="new-currentAmount" className="text-sm font-medium">Valor Atual</Label>
+              <Input 
+                id="new-currentAmount"
+                type="number"
+                step="0.01"
+                value={newGoalForm.currentAmount}
+                onChange={(e) => setNewGoalForm({...newGoalForm, currentAmount: e.target.value})}
+                placeholder="0,00"
+                className="rounded-xl border-border/50 focus:border-primary h-9"
+              />
+            </div>
+
+            <div className="space-y-1">
+              <Label htmlFor="new-deadline" className="text-sm font-medium">Data Limite</Label>
+              <Input 
+                id="new-deadline"
+                type="date"
+                value={newGoalForm.deadline}
+                onChange={(e) => setNewGoalForm({...newGoalForm, deadline: e.target.value})}
+                className="rounded-xl border-border/50 focus:border-primary h-9"
+              />
+            </div>
+
+            <div className="space-y-1">
+              <Label htmlFor="new-category" className="text-sm font-medium">Categoria</Label>
+              <Select value={newGoalForm.category} onValueChange={(value) => setNewGoalForm({...newGoalForm, category: value})}>
+                <SelectTrigger className="rounded-xl border-border/50 focus:border-primary h-9">
+                  <SelectValue placeholder="Selecione uma categoria" />
+                </SelectTrigger>
+                <SelectContent className="rounded-xl">
+                  <SelectItem value="Viagem">🌎 Viagem</SelectItem>
+                  <SelectItem value="Segurança">🛡️ Segurança</SelectItem>
+                  <SelectItem value="Tecnologia">💻 Tecnologia</SelectItem>
+                  <SelectItem value="Educação">📚 Educação</SelectItem>
+                  <SelectItem value="Casa">🏠 Casa</SelectItem>
+                  <SelectItem value="Veículo">🚗 Veículo</SelectItem>
+                  <SelectItem value="Investimento">📈 Investimento</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-1">
+              <Label htmlFor="new-priority" className="text-sm font-medium">Prioridade</Label>
+              <Select value={newGoalForm.priority} onValueChange={(value) => setNewGoalForm({...newGoalForm, priority: value})}>
+                <SelectTrigger className="rounded-xl border-border/50 focus:border-primary h-9">
+                  <SelectValue placeholder="Selecione a prioridade" />
+                </SelectTrigger>
+                <SelectContent className="rounded-xl">
+                  <SelectItem value="high">🔴 Alta</SelectItem>
+                  <SelectItem value="medium">🟡 Média</SelectItem>
+                  <SelectItem value="low">🟢 Baixa</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="flex gap-3 pt-2">
+              <Button 
+                type="button" 
+                variant="outline"
+                onClick={() => setIsAddModalOpen(false)}
+                className="flex-1 rounded-xl border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700 hover:border-red-300 dark:border-red-800 dark:text-red-400 dark:hover:bg-red-950 dark:hover:text-red-300"
+              >
+                Cancelar
+              </Button>
+              <Button 
+                onClick={handleAddGoal}
+                className="flex-1 rounded-xl bg-gradient-primary hover:opacity-90 transition-opacity"
+              >
+                Criar Meta
               </Button>
             </div>
           </div>

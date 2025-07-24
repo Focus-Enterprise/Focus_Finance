@@ -13,13 +13,13 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useTransactions } from '@/contexts/TransactionsContext';
-import { useState } from 'react';
+import { useVisibility } from '@/contexts/VisibilityContext';
 import { useNavigate } from 'react-router-dom';
 
 export default function Dashboard() {
   const navigate = useNavigate();
   const { transactions, totalIncome, totalExpenses, balance } = useTransactions();
-  const [showBalance, setShowBalance] = useState(true);
+  const { showBalance, toggleVisibility } = useVisibility();
   const monthlyGoal = 5000.00;
   const goalProgress = ((totalIncome - totalExpenses) / monthlyGoal) * 100;
 
@@ -57,7 +57,7 @@ export default function Dashboard() {
             <Button
               variant="ghost"
               size="icon"
-              onClick={() => setShowBalance(!showBalance)}
+              onClick={toggleVisibility}
               className="h-8 w-8 text-primary-foreground hover:bg-white/20"
               aria-label={showBalance ? 'Ocultar saldo' : 'Mostrar saldo'}
             >

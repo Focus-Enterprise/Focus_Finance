@@ -10,7 +10,7 @@ export function Footer() {
   const footerLinks = [
     { label: 'Termos de Uso', href: '#' },
     { label: 'Política de Privacidade', href: '#' },
-    { label: "Aprenda a usar o Focus", href: "https://docs.lovable.dev/tutorial-focus-finance" }
+    { label: "Aprenda a usar o Focus", href: "/tutorial" }
   ];
 
   return (
@@ -31,8 +31,7 @@ export function Footer() {
               <a
                 key={link.label}
                 href={link.href}
-                target={link.label === "Aprenda a usar o Focus" ? "_blank" : "_self"}
-                rel={link.label === "Aprenda a usar o Focus" ? "noopener noreferrer" : undefined}
+                target="_self"
                 className="text-sm text-muted-foreground hover:text-primary transition-colors"
               >
                 {link.label}

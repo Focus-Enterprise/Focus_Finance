@@ -3,6 +3,7 @@
 
 import { useState } from 'react';
 import { useTransactions } from '@/contexts/TransactionsContext';
+import { useVisibility } from '@/contexts/VisibilityContext';
 import { 
   ArrowUpRight, 
   ArrowDownRight, 
@@ -36,6 +37,7 @@ export default function Transactions() {
   const [filterCategory, setFilterCategory] = useState('all');
   
   const { transactions, totalIncome, totalExpenses } = useTransactions();
+  const { showBalance } = useVisibility();
 
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat('pt-BR', {
@@ -117,7 +119,7 @@ export default function Transactions() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-success">
-              {formatCurrency(filteredTotalIncome)}
+              {showBalance ? formatCurrency(filteredTotalIncome) : '••••••'}
             </div>
             <p className="text-xs text-muted-foreground">
               {filteredTransactions.filter(t => t.type === 'income').length} transações
@@ -132,7 +134,7 @@ export default function Transactions() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-destructive">
-              {formatCurrency(filteredTotalExpenses)}
+              {showBalance ? formatCurrency(filteredTotalExpenses) : '••••••'}
             </div>
             <p className="text-xs text-muted-foreground">
               {filteredTransactions.filter(t => t.type === 'expense').length} transações
@@ -149,7 +151,7 @@ export default function Transactions() {
             <div className={`text-2xl font-bold ${
               filteredTotalIncome - filteredTotalExpenses >= 0 ? 'text-success' : 'text-destructive'
             }`}>
-              {formatCurrency(filteredTotalIncome - filteredTotalExpenses)}
+              {showBalance ? formatCurrency(filteredTotalIncome - filteredTotalExpenses) : '••••••'}
             </div>
             <p className="text-xs text-muted-foreground">
               {filteredTransactions.length} transações total
@@ -233,7 +235,7 @@ export default function Transactions() {
                      transaction.type === 'income' ? 'text-success' : 'text-destructive'
                    }`}>
                      {transaction.type === 'income' ? '+' : '-'}
-                     {formatCurrency(transaction.amount)}
+                     {showBalance ? formatCurrency(transaction.amount) : '••••••'}
                   </p>
                   {transaction.description && (
                     <p className="text-xs sm:text-sm text-muted-foreground mt-1">{transaction.description}</p>

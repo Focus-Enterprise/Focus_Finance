@@ -2,6 +2,7 @@
 // Interactive charts and financial analytics | Gráficos interativos e análise financeira
 
 import { useState } from 'react';
+import { useVisibility } from '@/contexts/VisibilityContext';
 import { 
   BarChart3, 
   PieChart, 
@@ -22,6 +23,7 @@ import {
 } from '@/components/ui/select';
 
 export default function Reports() {
+  const { showBalance } = useVisibility();
   const [selectedPeriod, setSelectedPeriod] = useState('30');
   const [selectedChart, setSelectedChart] = useState('overview');
 
@@ -101,7 +103,9 @@ export default function Reports() {
             <TrendingUp className="h-4 w-4 text-success" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{formatCurrency(currentMonthIncome)}</div>
+            <div className="text-2xl font-bold">
+              {showBalance ? formatCurrency(currentMonthIncome) : '••••••'}
+            </div>
             <p className={`text-xs flex items-center gap-1 ${
               incomeChange >= 0 ? 'text-success' : 'text-destructive'
             }`}>
@@ -117,7 +121,9 @@ export default function Reports() {
             <TrendingDown className="h-4 w-4 text-destructive" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{formatCurrency(currentMonthExpenses)}</div>
+            <div className="text-2xl font-bold">
+              {showBalance ? formatCurrency(currentMonthExpenses) : '••••••'}
+            </div>
             <p className={`text-xs flex items-center gap-1 ${
               expenseChange <= 0 ? 'text-success' : 'text-destructive'
             }`}>
@@ -133,7 +139,9 @@ export default function Reports() {
             <Activity className="h-4 w-4 text-primary" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-primary">{formatCurrency(currentMonthSavings)}</div>
+            <div className="text-2xl font-bold text-primary">
+              {showBalance ? formatCurrency(currentMonthSavings) : '••••••'}
+            </div>
             <p className="text-xs text-muted-foreground">
               {((currentMonthSavings / currentMonthIncome) * 100).toFixed(1)}% da receita
             </p>
@@ -183,10 +191,10 @@ export default function Reports() {
                 <div className="space-y-3">
                   {monthlyData.map((data, index) => (
                     <div key={data.month} className="space-y-2">
-                      <div className="flex justify-between text-sm">
-                        <span>{data.month}</span>
-                        <span>{formatCurrency(data.income - data.expenses)}</span>
-                      </div>
+                       <div className="flex justify-between text-sm">
+                         <span>{data.month}</span>
+                         <span>{showBalance ? formatCurrency(data.income - data.expenses) : '••••••'}</span>
+                       </div>
                       <div className="w-full bg-muted rounded-full h-2">
                         <div 
                           className="bg-gradient-primary h-2 rounded-full transition-all duration-500"
@@ -213,10 +221,12 @@ export default function Reports() {
                         <div className={`w-4 h-4 rounded ${category.color}`} />
                         <span className="font-medium">{category.category}</span>
                       </div>
-                      <div className="text-right">
-                        <div className="font-semibold">{formatCurrency(category.amount)}</div>
-                        <div className="text-sm text-muted-foreground">{category.percentage}%</div>
-                      </div>
+                       <div className="text-right">
+                         <div className="font-semibold">
+                           {showBalance ? formatCurrency(category.amount) : '••••••'}
+                         </div>
+                         <div className="text-sm text-muted-foreground">{category.percentage}%</div>
+                       </div>
                     </div>
                     <div className="w-full bg-muted rounded-full h-2">
                       <div 
@@ -227,12 +237,12 @@ export default function Reports() {
                   </div>
                 ))}
               </div>
-              <div className="pt-4 border-t">
-                <div className="flex justify-between font-bold">
-                  <span>Total</span>
-                  <span>{formatCurrency(totalExpenses)}</span>
-                </div>
-              </div>
+               <div className="pt-4 border-t">
+                 <div className="flex justify-between font-bold">
+                   <span>Total</span>
+                   <span>{showBalance ? formatCurrency(totalExpenses) : '••••••'}</span>
+                 </div>
+               </div>
             </div>
           )}
 
@@ -244,10 +254,10 @@ export default function Reports() {
                   <div key={data.month} className="space-y-3">
                     <h4 className="font-medium">{data.month}</h4>
                     <div className="space-y-2">
-                      <div className="flex justify-between text-sm">
-                        <span className="text-success">Receitas</span>
-                        <span>{formatCurrency(data.income)}</span>
-                      </div>
+                       <div className="flex justify-between text-sm">
+                         <span className="text-success">Receitas</span>
+                         <span>{showBalance ? formatCurrency(data.income) : '••••••'}</span>
+                       </div>
                       <div className="w-full bg-muted rounded-full h-2">
                         <div 
                           className="bg-success h-2 rounded-full"
@@ -256,10 +266,10 @@ export default function Reports() {
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <div className="flex justify-between text-sm">
-                        <span className="text-destructive">Despesas</span>
-                        <span>{formatCurrency(data.expenses)}</span>
-                      </div>
+                       <div className="flex justify-between text-sm">
+                         <span className="text-destructive">Despesas</span>
+                         <span>{showBalance ? formatCurrency(data.expenses) : '••••••'}</span>
+                       </div>
                       <div className="w-full bg-muted rounded-full h-2">
                         <div 
                           className="bg-destructive h-2 rounded-full"
