@@ -10,6 +10,7 @@ import {
   Settings,
   Plus
 } from 'lucide-react';
+import focusLogo from '@/assets/focus-logo-new.png';
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { NavLink } from 'react-router-dom';
@@ -31,9 +32,11 @@ export function Layout() {
         <div className="container flex h-16 items-center justify-between">
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-2">
-              <div className="h-8 w-8 rounded-lg bg-gradient-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-lg">F</span>
-              </div>
+              <img 
+                src={focusLogo} 
+                alt="Focus Finance Logo" 
+                className="h-8 w-8 object-contain"
+              />
               <h1 className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
                 Focus
               </h1>

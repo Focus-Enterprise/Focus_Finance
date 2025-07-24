@@ -2,6 +2,7 @@
 // Simple footer with useful links | Rodapé simples com links úteis
 
 import { Heart } from 'lucide-react';
+import focusLogo from '@/assets/focus-logo-new.png';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -17,9 +18,11 @@ export function Footer() {
       <div className="container py-8">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex items-center space-x-2">
-            <div className="h-6 w-6 rounded bg-gradient-primary flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-sm">F</span>
-            </div>
+            <img 
+              src={focusLogo} 
+              alt="Focus Finance Logo" 
+              className="h-6 w-6 object-contain"
+            />
             <span className="font-semibold">Focus Finance</span>
           </div>
 
