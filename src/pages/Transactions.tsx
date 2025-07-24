@@ -106,10 +106,6 @@ export default function Transactions() {
             Gerencie suas receitas e despesas
           </p>
         </div>
-        <Button className="bg-gradient-primary hover:shadow-green transition-all">
-          <Plus className="h-4 w-4 mr-2" />
-          Nova Transação
-        </Button>
       </div>
 
       {/* Summary Cards | Cartões de Resumo */}
