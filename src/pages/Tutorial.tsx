@@ -496,11 +496,11 @@ export default function Tutorial() {
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <h4 className="font-semibold">📧 Email de Suporte</h4>
-                      <p className="text-sm text-muted-foreground">suporte@focusfinance.app</p>
+                      <p className="text-sm text-muted-foreground">focus.prise@gmail.com</p>
                     </div>
                     <div className="space-y-2">
                       <h4 className="font-semibold">💬 Chat Online</h4>
-                      <p className="text-sm text-muted-foreground">Disponível nas configurações do app</p>
+                      <p className="text-sm text-muted-foreground">Em breve</p>
                     </div>
                   </div>
                   <div className="pt-4 border-t">
