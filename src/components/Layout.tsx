@@ -117,7 +117,7 @@ export function Layout() {
               aria-label={item.ariaLabel}
             >
               <item.icon className="h-5 w-5" />
-              <span className="text-xs font-medium truncate">{item.name}</span>
+              <span className="text-xs font-medium truncate tracking-wide">{item.name}</span>
             </NavLink>
           ))}
         </nav>
