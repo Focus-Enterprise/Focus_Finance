@@ -1,376 +1,519 @@
-// Tutorial Page | Página de Tutorial
-// Complete guide for first-time users | Guia completo para novos usuários
+// Tutorial Page | Página Tutorial
+// Complete guide for using Focus Finance | Guia completo para usar o Focus Finance
 
-import { 
-  Home, 
-  Target, 
-  ArrowUpDown, 
-  BarChart3, 
-  Settings,
-  Plus,
-  Eye,
-  EyeOff,
-  TrendingUp,
-  TrendingDown,
-  Filter,
-  Search,
-  Calendar
-} from 'lucide-react';
+import { ArrowLeft, Home, Target, TrendingUp, CreditCard, BarChart3, Settings, Eye, EyeOff, Plus } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useNavigate } from 'react-router-dom';
+import focusLogo from '/lovable-uploads/922516b4-9d12-41b8-8093-6ccd25a59adc.png';
 
 export default function Tutorial() {
+  const navigate = useNavigate();
+
   return (
-    <div className="min-h-screen bg-background py-12">
-      <div className="container max-w-4xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-4">
-            Tutorial do Focus Finance
-          </h1>
-          <p className="text-xl text-muted-foreground">
-            Aprenda a usar todas as funcionalidades do seu app de finanças pessoais
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
+      {/* Header */}
+      <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-40">
+        <div className="container py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <img 
+                src={focusLogo} 
+                alt="Focus Finance Logo" 
+                className="h-8 w-8 object-contain"
+              />
+              <div>
+                <h1 className="text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+                  Focus Finance
+                </h1>
+                <p className="text-sm text-muted-foreground">Tutorial Completo</p>
+              </div>
+            </div>
+            <Button 
+              onClick={() => navigate('/')} 
+              className="bg-gradient-primary hover:opacity-90"
+            >
+              <Home className="h-4 w-4 mr-2" />
+              Ir ao App
+            </Button>
+          </div>
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <main className="container py-8 space-y-8">
+        {/* Hero Section */}
+        <div className="text-center space-y-4 py-12">
+          <Badge className="bg-gradient-primary text-white border-0 px-4 py-2">
+            🎯 Guia Completo
+          </Badge>
+          <h2 className="text-4xl md:text-5xl font-bold">
+            Aprenda a usar o <span className="bg-gradient-primary bg-clip-text text-transparent">Focus Finance</span>
+          </h2>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            Seu aplicativo completo de gestão financeira pessoal. 
+            Controle suas finanças de forma simples e eficiente.
           </p>
         </div>
 
-        {/* Introduction */}
-        <Card className="mb-8">
-          <CardHeader>
-            <CardTitle className="text-2xl">Bem-vindo ao Focus Finance!</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <p className="text-lg">
-              O Focus Finance é seu companheiro ideal para controlar suas finanças pessoais. 
-              Com ele, você pode acompanhar receitas, despesas, definir metas e gerar relatórios detalhados.
-            </p>
-            <p>
-              Este tutorial vai te ensinar tudo que você precisa saber para começar a usar o app com confiança.
-            </p>
-          </CardContent>
-        </Card>
+        {/* Tabs Content */}
+        <Tabs defaultValue="overview" className="w-full">
+          <TabsList className="grid w-full grid-cols-4">
+            <TabsTrigger value="overview">Visão Geral</TabsTrigger>
+            <TabsTrigger value="features">Funcionalidades</TabsTrigger>
+            <TabsTrigger value="tips">Dicas</TabsTrigger>
+            <TabsTrigger value="legal">Termos & Política</TabsTrigger>
+          </TabsList>
 
-        {/* Navigation Guide */}
-        <Card className="mb-8">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Home className="h-5 w-5" />
-              Navegação do App
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-6">
+          {/* Overview Tab */}
+          <TabsContent value="overview" className="space-y-6">
+            <Card className="shadow-soft">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Eye className="h-5 w-5 text-primary" />
+                  Controle de Visibilidade
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex items-center gap-4 p-4 border rounded-lg">
+                  <div className="flex gap-2">
+                    <Eye className="h-5 w-5 text-primary" />
+                    <EyeOff className="h-5 w-5 text-muted-foreground" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold">Ícone do Olho</h4>
+                    <p className="text-sm text-muted-foreground">
+                      Clique no ícone do olho no Dashboard para ocultar/mostrar todos os valores em todas as páginas do app. 
+                      Útil para privacidade quando outras pessoas estão por perto.
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
             <div className="grid md:grid-cols-2 gap-6">
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <Home className="h-5 w-5 text-primary" />
-                  <div>
-                    <h4 className="font-semibold">Dashboard</h4>
-                    <p className="text-sm text-muted-foreground">
-                      Visão geral das suas finanças com saldo atual, receitas, despesas e transações recentes.
+              <Card className="shadow-soft">
+                <CardHeader>
+                  <CardTitle>🎯 Para que serve o Focus Finance?</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <p className="text-muted-foreground">
+                    O Focus Finance é seu assistente pessoal de finanças que ajuda você a:
+                  </p>
+                  <ul className="space-y-2 text-sm">
+                    <li>• <strong>Controlar gastos:</strong> Saiba exatamente onde seu dinheiro está indo</li>
+                    <li>• <strong>Definir metas:</strong> Planeje suas grandes conquistas financeiras</li>
+                    <li>• <strong>Acompanhar progresso:</strong> Veja seu crescimento financeiro em tempo real</li>
+                    <li>• <strong>Tomar decisões:</strong> Relatórios inteligentes para melhor gestão</li>
+                  </ul>
+                </CardContent>
+              </Card>
+
+              <Card className="shadow-soft">
+                <CardHeader>
+                  <CardTitle>🚀 Primeiros Passos</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-3">
+                      <Badge className="bg-primary/10 text-primary">1</Badge>
+                      <span className="text-sm">Explore o Dashboard para entender sua situação atual</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Badge className="bg-primary/10 text-primary">2</Badge>
+                      <span className="text-sm">Adicione suas primeiras transações na aba Transações</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Badge className="bg-primary/10 text-primary">3</Badge>
+                      <span className="text-sm">Defina suas metas financeiras no Planejamento</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Badge className="bg-primary/10 text-primary">4</Badge>
+                      <span className="text-sm">Acompanhe seu progresso nos Relatórios</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+
+          {/* Features Tab */}
+          <TabsContent value="features" className="space-y-6">
+            <div className="grid gap-6">
+              {/* Dashboard */}
+              <Card className="shadow-soft">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Home className="h-5 w-5 text-primary" />
+                    Dashboard - Sua Central de Controle
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <p className="text-muted-foreground">
+                    O Dashboard é sua página inicial onde você tem uma visão geral completa das suas finanças.
+                  </p>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="space-y-3">
+                      <h4 className="font-semibold">📊 Saldo Atual</h4>
+                      <ul className="text-sm text-muted-foreground space-y-1">
+                        <li>• Valor destacado do seu saldo total</li>
+                        <li>• Indicador visual: verde (positivo) ou vermelho (negativo)</li>
+                        <li>• Botão para ocultar valores (ícone do olho)</li>
+                        <li>• Percentual de crescimento mensal</li>
+                      </ul>
+                    </div>
+                    <div className="space-y-3">
+                      <h4 className="font-semibold">💰 Resumo Financeiro</h4>
+                      <ul className="text-sm text-muted-foreground space-y-1">
+                        <li>• Total de receitas do mês</li>
+                        <li>• Total de despesas do mês</li>
+                        <li>• Valor economizado</li>
+                        <li>• Progresso da meta de economia</li>
+                      </ul>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Planning */}
+              <Card className="shadow-soft">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Target className="h-5 w-5 text-primary" />
+                    Planejamento - Defina Suas Metas
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <p className="text-muted-foreground">
+                    Crie e acompanhe suas metas financeiras com prazo e prioridade definidos.
+                  </p>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="space-y-3">
+                      <h4 className="font-semibold">✨ Criar Nova Meta</h4>
+                      <ul className="text-sm text-muted-foreground space-y-1">
+                        <li>• Clique em "Nova Meta" (botão <Plus className="inline h-3 w-3" />)</li>
+                        <li>• Defina título e valor alvo</li>
+                        <li>• Escolha data limite</li>
+                        <li>• Selecione categoria e prioridade</li>
+                      </ul>
+                    </div>
+                    <div className="space-y-3">
+                      <h4 className="font-semibold">📈 Acompanhar Progresso</h4>
+                      <ul className="text-sm text-muted-foreground space-y-1">
+                        <li>• Barra de progresso visual</li>
+                        <li>• Percentual de conclusão</li>
+                        <li>• Dias restantes para meta</li>
+                        <li>• Editar ou excluir metas</li>
+                      </ul>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Transactions */}
+              <Card className="shadow-soft">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <CreditCard className="h-5 w-5 text-primary" />
+                    Transações - Controle Receitas e Despesas
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <p className="text-muted-foreground">
+                    Gerencie todas suas entradas e saídas de dinheiro com categorização inteligente.
+                  </p>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="space-y-3">
+                      <h4 className="font-semibold">🔍 Filtros e Busca</h4>
+                      <ul className="text-sm text-muted-foreground space-y-1">
+                        <li>• Buscar por nome ou categoria</li>
+                        <li>• Filtrar por tipo (receita/despesa)</li>
+                        <li>• Filtrar por categoria específica</li>
+                        <li>• Resultados em tempo real</li>
+                      </ul>
+                    </div>
+                    <div className="space-y-3">
+                      <h4 className="font-semibold">📊 Resumo Visual</h4>
+                      <ul className="text-sm text-muted-foreground space-y-1">
+                        <li>• Totais de receitas e despesas</li>
+                        <li>• Saldo líquido calculado</li>
+                        <li>• Cores para identificar tipos</li>
+                        <li>• Contador de transações</li>
+                      </ul>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Reports */}
+              <Card className="shadow-soft">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <BarChart3 className="h-5 w-5 text-primary" />
+                    Relatórios - Análise Inteligente
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <p className="text-muted-foreground">
+                    Visualize tendências, analise gastos por categoria e acompanhe sua saúde financeira.
+                  </p>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="space-y-3">
+                      <h4 className="font-semibold">📈 Gráficos Visuais</h4>
+                      <ul className="text-sm text-muted-foreground space-y-1">
+                        <li>• Visão geral dos últimos meses</li>
+                        <li>• Receitas vs Despesas</li>
+                        <li>• Gastos por categoria</li>
+                        <li>• Tendências mensais</li>
+                      </ul>
+                    </div>
+                    <div className="space-y-3">
+                      <h4 className="font-semibold">🏆 Score de Saúde</h4>
+                      <ul className="text-sm text-muted-foreground space-y-1">
+                        <li>• Pontuação de 0 a 10</li>
+                        <li>• Avaliação por categorias</li>
+                        <li>• Recomendações personalizadas</li>
+                        <li>• Comparação com mês anterior</li>
+                      </ul>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+
+          {/* Tips Tab */}
+          <TabsContent value="tips" className="space-y-6">
+            <div className="grid gap-6">
+              <Card className="shadow-soft">
+                <CardHeader>
+                  <CardTitle>💡 Dicas para Usar o Focus Finance</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="space-y-4">
+                      <h4 className="font-semibold text-primary">🎯 Definindo Metas Realistas</h4>
+                      <ul className="space-y-2 text-sm text-muted-foreground">
+                        <li>• Comece com metas pequenas e alcançáveis</li>
+                        <li>• Defina prazos realistas (nem muito curtos, nem muito longos)</li>
+                        <li>• Priorize metas de emergência primeiro</li>
+                        <li>• Revise suas metas mensalmente</li>
+                      </ul>
+                    </div>
+                    <div className="space-y-4">
+                      <h4 className="font-semibold text-primary">💰 Controlando Gastos</h4>
+                      <ul className="space-y-2 text-sm text-muted-foreground">
+                        <li>• Registre todas as transações, mesmo as pequenas</li>
+                        <li>• Use categorias consistentes</li>
+                        <li>• Analise seus gastos semanalmente</li>
+                        <li>• Identifique padrões de consumo</li>
+                      </ul>
+                    </div>
+                    <div className="space-y-4">
+                      <h4 className="font-semibold text-primary">📊 Analisando Relatórios</h4>
+                      <ul className="space-y-2 text-sm text-muted-foreground">
+                        <li>• Compare seus gastos mês a mês</li>
+                        <li>• Identifique categorias com maior gasto</li>
+                        <li>• Use o score de saúde como guia</li>
+                        <li>• Siga as recomendações do sistema</li>
+                      </ul>
+                    </div>
+                    <div className="space-y-4">
+                      <h4 className="font-semibold text-primary">🔒 Privacidade</h4>
+                      <ul className="space-y-2 text-sm text-muted-foreground">
+                        <li>• Use o ícone do olho para ocultar valores</li>
+                        <li>• Ideal quando outras pessoas estão por perto</li>
+                        <li>• Funciona em todas as páginas do app</li>
+                        <li>• Clique novamente para mostrar os valores</li>
+                      </ul>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="shadow-soft bg-gradient-to-r from-primary/5 to-primary/10 border-primary/20">
+                <CardHeader>
+                  <CardTitle className="text-primary">🎓 Boas Práticas Financeiras</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="grid md:grid-cols-3 gap-4">
+                    <div className="text-center p-4 bg-background/50 rounded-lg">
+                      <div className="text-2xl mb-2">50%</div>
+                      <div className="text-sm font-semibold">Necessidades</div>
+                      <div className="text-xs text-muted-foreground mt-1">Moradia, alimentação, transporte</div>
+                    </div>
+                    <div className="text-center p-4 bg-background/50 rounded-lg">
+                      <div className="text-2xl mb-2">30%</div>
+                      <div className="text-sm font-semibold">Desejos</div>
+                      <div className="text-xs text-muted-foreground mt-1">Lazer, entretenimento, compras</div>
+                    </div>
+                    <div className="text-center p-4 bg-background/50 rounded-lg">
+                      <div className="text-2xl mb-2">20%</div>
+                      <div className="text-sm font-semibold">Poupança</div>
+                      <div className="text-xs text-muted-foreground mt-1">Emergência, metas, investimentos</div>
+                    </div>
+                  </div>
+                  <p className="text-sm text-muted-foreground text-center">
+                    Regra 50-30-20: Uma forma simples de organizar seu orçamento
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+
+          {/* Legal Tab */}
+          <TabsContent value="legal" className="space-y-6">
+            <div className="grid gap-6">
+              {/* Terms of Use */}
+              <Card className="shadow-soft">
+                <CardHeader>
+                  <CardTitle>📋 Termos de Uso</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4 text-sm text-muted-foreground">
+                  <div className="space-y-3">
+                    <h4 className="font-semibold text-foreground">1. Aceitação dos Termos</h4>
+                    <p>
+                      Ao utilizar o Focus Finance, você concorda com estes termos de uso. 
+                      Se você não concorda com qualquer parte destes termos, não deve usar nosso aplicativo.
                     </p>
                   </div>
-                </div>
-                
-                <div className="flex items-center gap-3">
-                  <Target className="h-5 w-5 text-primary" />
-                  <div>
-                    <h4 className="font-semibold">Planejamento</h4>
-                    <p className="text-sm text-muted-foreground">
-                      Defina metas financeiras e acompanhe seu progresso mensalmente.
+
+                  <div className="space-y-3">
+                    <h4 className="font-semibold text-foreground">2. Uso do Aplicativo</h4>
+                    <ul className="space-y-1 pl-4">
+                      <li>• O Focus Finance é destinado apenas para uso pessoal de gestão financeira</li>
+                      <li>• Você é responsável pela precisão das informações inseridas</li>
+                      <li>• Não utilize o aplicativo para atividades ilegais ou não autorizadas</li>
+                      <li>• O aplicativo é fornecido "como está" sem garantias expressas ou implícitas</li>
+                    </ul>
+                  </div>
+
+                  <div className="space-y-3">
+                    <h4 className="font-semibold text-foreground">3. Responsabilidades do Usuário</h4>
+                    <ul className="space-y-1 pl-4">
+                      <li>• Manter a confidencialidade de suas informações de acesso</li>
+                      <li>• Usar o aplicativo de forma responsável e ética</li>
+                      <li>• Não tentar comprometer a segurança do sistema</li>
+                      <li>• Reportar bugs ou problemas de segurança identificados</li>
+                    </ul>
+                  </div>
+
+                  <div className="space-y-3">
+                    <h4 className="font-semibold text-foreground">4. Limitação de Responsabilidade</h4>
+                    <p>
+                      O Focus Finance não se responsabiliza por decisões financeiras tomadas com base 
+                      nas informações fornecidas pelo aplicativo. Use sempre seu bom senso e consulte 
+                      profissionais quando necessário.
                     </p>
                   </div>
-                </div>
 
-                <div className="flex items-center gap-3">
-                  <ArrowUpDown className="h-5 w-5 text-primary" />
-                  <div>
-                    <h4 className="font-semibold">Transações</h4>
-                    <p className="text-sm text-muted-foreground">
-                      Lista completa de todas suas receitas e despesas com filtros avançados.
+                  <div className="space-y-3">
+                    <h4 className="font-semibold text-foreground">5. Modificações</h4>
+                    <p>
+                      Reservamo-nos o direito de modificar estes termos a qualquer momento. 
+                      Continuando a usar o aplicativo após as mudanças, você aceita os novos termos.
                     </p>
                   </div>
-                </div>
-              </div>
+                </CardContent>
+              </Card>
 
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <BarChart3 className="h-5 w-5 text-primary" />
-                  <div>
-                    <h4 className="font-semibold">Relatórios</h4>
-                    <p className="text-sm text-muted-foreground">
-                      Gráficos e análises detalhadas dos seus gastos por categoria e período.
+              {/* Privacy Policy */}
+              <Card className="shadow-soft">
+                <CardHeader>
+                  <CardTitle>🔒 Política de Privacidade</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4 text-sm text-muted-foreground">
+                  <div className="space-y-3">
+                    <h4 className="font-semibold text-foreground">1. Informações que Coletamos</h4>
+                    <ul className="space-y-1 pl-4">
+                      <li>• Dados financeiros inseridos voluntariamente (transações, metas, etc.)</li>
+                      <li>• Informações de uso do aplicativo para melhorar a experiência</li>
+                      <li>• Dados técnicos como tipo de dispositivo e navegador</li>
+                      <li>• Preferências de configuração e personalização</li>
+                    </ul>
+                  </div>
+
+                  <div className="space-y-3">
+                    <h4 className="font-semibold text-foreground">2. Como Usamos Suas Informações</h4>
+                    <ul className="space-y-1 pl-4">
+                      <li>• Fornecer e melhorar nossos serviços</li>
+                      <li>• Gerar relatórios e análises personalizadas</li>
+                      <li>• Personalizar sua experiência no aplicativo</li>
+                      <li>• Enviar notificações relevantes (se autorizadas)</li>
+                    </ul>
+                  </div>
+
+                  <div className="space-y-3">
+                    <h4 className="font-semibold text-foreground">3. Proteção de Dados</h4>
+                    <ul className="space-y-1 pl-4">
+                      <li>• Seus dados financeiros são armazenados localmente no seu dispositivo</li>
+                      <li>• Utilizamos criptografia para proteger informações sensíveis</li>
+                      <li>• Não compartilhamos seus dados financeiros com terceiros</li>
+                      <li>• Você pode excluir seus dados a qualquer momento</li>
+                    </ul>
+                  </div>
+
+                  <div className="space-y-3">
+                    <h4 className="font-semibold text-foreground">4. Seus Direitos</h4>
+                    <ul className="space-y-1 pl-4">
+                      <li>• Acessar todos os dados que temos sobre você</li>
+                      <li>• Corrigir informações incorretas ou desatualizadas</li>
+                      <li>• Excluir sua conta e todos os dados associados</li>
+                      <li>• Exportar seus dados em formato legível</li>
+                    </ul>
+                  </div>
+
+                  <div className="space-y-3">
+                    <h4 className="font-semibold text-foreground">5. Cookies e Tecnologias Similares</h4>
+                    <p>
+                      Utilizamos cookies apenas para melhorar sua experiência, como lembrar suas 
+                      preferências de tema e configurações. Você pode desabilitar os cookies nas 
+                      configurações do seu navegador.
                     </p>
                   </div>
-                </div>
 
-                <div className="flex items-center gap-3">
-                  <Settings className="h-5 w-5 text-primary" />
-                  <div>
-                    <h4 className="font-semibold">Configurações</h4>
-                    <p className="text-sm text-muted-foreground">
-                      Personalize seu perfil, notificações e preferências do app.
+                  <div className="space-y-3">
+                    <h4 className="font-semibold text-foreground">6. Contato</h4>
+                    <p>
+                      Se você tiver dúvidas sobre nossa política de privacidade ou sobre como 
+                      tratamos seus dados, entre em contato conosco através das configurações do aplicativo.
                     </p>
                   </div>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+                </CardContent>
+              </Card>
 
-        {/* Dashboard Features */}
-        <Card className="mb-8">
-          <CardHeader>
-            <CardTitle>Dashboard - Seu Painel Principal</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="space-y-4">
-              <h4 className="font-semibold text-lg">Cartão de Saldo Atual</h4>
-              <div className="bg-gradient-primary text-white p-4 rounded-lg">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-white/80 text-sm">Saldo atual</span>
-                  <Eye className="h-4 w-4" />
-                </div>
-                <div className="text-2xl font-bold">R$ 2.599,30</div>
-              </div>
-              <div className="space-y-2">
-                <p><strong>Cor Verde:</strong> Quando seu saldo está positivo (você tem dinheiro)</p>
-                <p><strong>Cor Vermelha:</strong> Quando seu saldo está negativo (você deve mais do que tem)</p>
-                <p className="flex items-center gap-2">
-                  <Eye className="h-4 w-4" />
-                  <strong>Botão de Visibilidade:</strong> Clique para ocultar/mostrar todos os valores financeiros
-                </p>
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <h4 className="font-semibold text-lg">Cards de Resumo</h4>
-              <div className="grid md:grid-cols-3 gap-4">
-                <div className="border rounded-lg p-4">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm">Receitas</span>
-                    <TrendingUp className="h-4 w-4 text-green-500" />
+              {/* Contact */}
+              <Card className="shadow-soft bg-muted/30">
+                <CardHeader>
+                  <CardTitle>📞 Suporte e Contato</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <p className="text-sm text-muted-foreground">
+                    Precisa de ajuda ou tem alguma dúvida? Estamos aqui para te ajudar!
+                  </p>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <h4 className="font-semibold">📧 Email de Suporte</h4>
+                      <p className="text-sm text-muted-foreground">suporte@focusfinance.app</p>
+                    </div>
+                    <div className="space-y-2">
+                      <h4 className="font-semibold">💬 Chat Online</h4>
+                      <p className="text-sm text-muted-foreground">Disponível nas configurações do app</p>
+                    </div>
                   </div>
-                  <div className="text-xl font-bold text-green-500">R$ 3.975,50</div>
-                  <p className="text-xs text-muted-foreground">Todo dinheiro que entra</p>
-                </div>
-                
-                <div className="border rounded-lg p-4">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm">Despesas</span>
-                    <TrendingDown className="h-4 w-4 text-red-500" />
+                  <div className="pt-4 border-t">
+                    <p className="text-xs text-muted-foreground text-center">
+                      Última atualização: Janeiro 2024 • Focus Finance v1.0
+                    </p>
                   </div>
-                  <div className="text-xl font-bold text-red-500">R$ 1.376,20</div>
-                  <p className="text-xs text-muted-foreground">Todo dinheiro que sai</p>
-                </div>
-
-                <div className="border rounded-lg p-4">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm">Economia</span>
-                    <Target className="h-4 w-4 text-blue-500" />
-                  </div>
-                  <div className="text-xl font-bold text-blue-500">R$ 2.599,30</div>
-                  <p className="text-xs text-muted-foreground">O que você conseguiu guardar</p>
-                </div>
-              </div>
+                </CardContent>
+              </Card>
             </div>
-
-            <div className="space-y-4">
-              <h4 className="font-semibold text-lg">Transações Recentes</h4>
-              <p>Mostra as 5 últimas transações que você adicionou, com link para "Ver todas" que leva para a página de Transações.</p>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Adding Transactions */}
-        <Card className="mb-8">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Plus className="h-5 w-5" />
-              Como Adicionar Transações
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="space-y-4">
-              <h4 className="font-semibold">Botão Flutuante Verde (+)</h4>
-              <p>
-                No Dashboard e Planejamento, você verá um botão verde redondo no canto inferior direito. 
-                Clique nele para adicionar uma nova transação.
-              </p>
-            </div>
-
-            <div className="space-y-4">
-              <h4 className="font-semibold">Preenchendo o Formulário</h4>
-              <div className="space-y-3">
-                <div>
-                  <strong>1. Tipo de Transação:</strong>
-                  <p>• <span className="text-green-600">Receita:</span> Dinheiro que você recebeu (salário, freelance, vendas)</p>
-                  <p>• <span className="text-red-600">Despesa:</span> Dinheiro que você gastou (compras, contas, lazer)</p>
-                </div>
-                
-                <div>
-                  <strong>2. Descrição:</strong>
-                  <p>Nome curto para identificar a transação (ex: "Salário Janeiro", "Supermercado")</p>
-                </div>
-
-                <div>
-                  <strong>3. Valor:</strong>
-                  <p>Digite apenas o número (ex: 1500.00 para mil e quinhentos reais)</p>
-                </div>
-
-                <div>
-                  <strong>4. Categoria:</strong>
-                  <p>Escolha uma categoria da lista ou selecione "Outro" para criar uma personalizada</p>
-                </div>
-
-                <div>
-                  <strong>5. Descrição Adicional:</strong>
-                  <p>Campo opcional para mais detalhes sobre a transação</p>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Transactions Page */}
-        <Card className="mb-8">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <ArrowUpDown className="h-5 w-5" />
-              Página de Transações
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="space-y-4">
-              <h4 className="font-semibold">Cards de Totais</h4>
-              <p>No topo da página, você vê três cards com:</p>
-              <ul className="list-disc list-inside space-y-1 ml-4">
-                <li><strong>Total de Receitas:</strong> Soma de todo dinheiro que entrou</li>
-                <li><strong>Total de Despesas:</strong> Soma de todo dinheiro que saiu</li>
-                <li><strong>Saldo Líquido:</strong> Diferença entre receitas e despesas</li>
-              </ul>
-            </div>
-
-            <div className="space-y-4">
-              <h4 className="font-semibold">Filtros de Busca</h4>
-              <div className="border rounded-lg p-4 space-y-3">
-                <div className="flex items-center gap-2">
-                  <Search className="h-4 w-4" />
-                  <strong>Busca por Texto:</strong> Digite para encontrar transações por nome ou categoria
-                </div>
-                
-                <div className="flex items-center gap-2">
-                  <Filter className="h-4 w-4" />
-                  <strong>Filtro por Tipo:</strong> Mostre apenas receitas, apenas despesas, ou ambos
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <Calendar className="h-4 w-4" />
-                  <strong>Filtro por Categoria:</strong> Filtre por categoria específica (Alimentação, Transporte, etc.)
-                </div>
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <h4 className="font-semibold">Lista de Transações</h4>
-              <p>
-                Cada transação mostra o nome, valor (verde para receitas, vermelho para despesas), 
-                categoria com cor específica e data da transação.
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Planning Page */}
-        <Card className="mb-8">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Target className="h-5 w-5" />
-              Planejamento Financeiro
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <p>
-              Use esta página para definir metas financeiras mensais e acompanhar seu progresso. 
-              Defina quanto quer economizar, quanto pode gastar em cada categoria, e veja se está 
-              no caminho certo para atingir seus objetivos.
-            </p>
-          </CardContent>
-        </Card>
-
-        {/* Reports Page */}
-        <Card className="mb-8">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <BarChart3 className="h-5 w-5" />
-              Relatórios e Gráficos
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <p>
-              Visualize seus gastos em gráficos coloridos, veja tendências ao longo do tempo 
-              e analise em quais categorias você mais gasta. Ideal para entender seus hábitos 
-              financeiros e tomar decisões mais conscientes.
-            </p>
-          </CardContent>
-        </Card>
-
-        {/* Settings Page */}
-        <Card className="mb-8">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Settings className="h-5 w-5" />
-              Configurações
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <p>
-              Personalize sua experiência: altere suas informações pessoais, configure 
-              notificações, escolha o tema (claro/escuro) e ajuste outras preferências do app.
-            </p>
-          </CardContent>
-        </Card>
-
-        {/* Tips */}
-        <Card className="mb-8">
-          <CardHeader>
-            <CardTitle>Dicas para Começar</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <ol className="list-decimal list-inside space-y-3">
-              <li>
-                <strong>Comece adicionando suas receitas:</strong> Salário, freelances, vendas, etc.
-              </li>
-              <li>
-                <strong>Adicione suas despesas principais:</strong> Aluguel, alimentação, transporte, etc.
-              </li>
-              <li>
-                <strong>Use categorias consistentes:</strong> Isso ajudará nos relatórios futuros
-              </li>
-              <li>
-                <strong>Verifique o saldo regularmente:</strong> Use o Dashboard para acompanhar sua situação
-              </li>
-              <li>
-                <strong>Explore os filtros:</strong> Na página de Transações, use os filtros para analisar períodos específicos
-              </li>
-              <li>
-                <strong>Defina metas:</strong> Use o Planejamento para estabelecer objetivos financeiros
-              </li>
-            </ol>
-          </CardContent>
-        </Card>
-
-        {/* Contact */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Precisa de Ajuda?</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p>
-              Se você ainda tiver dúvidas ou encontrar algum problema, entre em contato conosco 
-              através das configurações do app. Estamos aqui para ajudar você a ter sucesso 
-              no controle das suas finanças!
-            </p>
-          </CardContent>
-        </Card>
-      </div>
+          </TabsContent>
+        </Tabs>
+      </main>
     </div>
   );
 }
