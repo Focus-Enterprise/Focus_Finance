@@ -1,6 +1,7 @@
 // Main Layout Component | Componente de Layout Principal
 // Responsive layout with bottom navigation for mobile | Layout responsivo com navegação inferior para mobile
 
+import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { 
   Home, 
@@ -12,6 +13,10 @@ import {
 } from 'lucide-react';
 import focusLogo from '/lovable-uploads/922516b4-9d12-41b8-8093-6ccd25a59adc.png';
 import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { NavLink } from 'react-router-dom';
 import { cn } from '@/lib/utils';
@@ -25,6 +30,15 @@ const navigation = [
 ];
 
 export function Layout() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [transactionType, setTransactionType] = useState('');
+  
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Aqui você pode implementar a lógica para salvar a transação
+    console.log('Nova transação adicionada');
+    setIsModalOpen(false);
+  };
   return (
     <div className="min-h-screen bg-background">
       {/* Header - Desktop and Tablet | Cabeçalho - Desktop e Tablet */}
@@ -103,13 +117,94 @@ export function Layout() {
       </div>
 
       {/* Floating Action Button - Add Transaction | Botão Flutuante - Adicionar Transação */}
-      <Button
-        size="icon"
-        className="fixed bottom-20 right-4 md:bottom-8 h-14 w-14 rounded-full shadow-strong z-40 bg-gradient-primary hover:shadow-green transition-all hover:scale-105"
-        aria-label="Adicionar nova transação"
-      >
-        <Plus className="h-6 w-6" />
-      </Button>
+      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+        <DialogTrigger asChild>
+          <Button
+            size="icon"
+            className="fixed bottom-20 right-4 md:bottom-8 h-14 w-14 rounded-full shadow-strong z-40 bg-gradient-primary hover:shadow-green transition-all hover:scale-105"
+            aria-label="Adicionar nova transação"
+          >
+            <Plus className="h-6 w-6" />
+          </Button>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-md rounded-2xl border-0 shadow-2xl bg-background/95 backdrop-blur-md">
+          <DialogHeader className="space-y-3">
+            <DialogTitle className="text-xl font-semibold text-center bg-gradient-primary bg-clip-text text-transparent">
+              Nova Transação
+            </DialogTitle>
+          </DialogHeader>
+          
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="space-y-2">
+              <Label htmlFor="type" className="text-sm font-medium">Tipo</Label>
+              <Select value={transactionType} onValueChange={setTransactionType}>
+                <SelectTrigger className="rounded-xl border-border/50 focus:border-primary">
+                  <SelectValue placeholder="Selecione o tipo" />
+                </SelectTrigger>
+                <SelectContent className="rounded-xl">
+                  <SelectItem value="income">💰 Receita</SelectItem>
+                  <SelectItem value="expense">💸 Despesa</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="description" className="text-sm font-medium">Descrição</Label>
+              <Input 
+                id="description"
+                placeholder="Ex: Salário, Compras..."
+                className="rounded-xl border-border/50 focus:border-primary"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="amount" className="text-sm font-medium">Valor</Label>
+              <Input 
+                id="amount"
+                type="number"
+                step="0.01"
+                placeholder="0,00"
+                className="rounded-xl border-border/50 focus:border-primary"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="category" className="text-sm font-medium">Categoria</Label>
+              <Select>
+                <SelectTrigger className="rounded-xl border-border/50 focus:border-primary">
+                  <SelectValue placeholder="Selecione uma categoria" />
+                </SelectTrigger>
+                <SelectContent className="rounded-xl">
+                  <SelectItem value="food">🍽️ Alimentação</SelectItem>
+                  <SelectItem value="transport">🚗 Transporte</SelectItem>
+                  <SelectItem value="health">🏥 Saúde</SelectItem>
+                  <SelectItem value="education">📚 Educação</SelectItem>
+                  <SelectItem value="entertainment">🎬 Entretenimento</SelectItem>
+                  <SelectItem value="salary">💼 Salário</SelectItem>
+                  <SelectItem value="investment">📈 Investimento</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="flex gap-3 pt-4">
+              <Button 
+                type="button" 
+                variant="outline"
+                onClick={() => setIsModalOpen(false)}
+                className="flex-1 rounded-xl border-border/50 hover:bg-accent"
+              >
+                Cancelar
+              </Button>
+              <Button 
+                type="submit"
+                className="flex-1 rounded-xl bg-gradient-primary hover:opacity-90 transition-opacity"
+              >
+                Salvar
+              </Button>
+            </div>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
