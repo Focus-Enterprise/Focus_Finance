@@ -13,8 +13,10 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Dashboard() {
+  const navigate = useNavigate();
   const [showBalance, setShowBalance] = useState(true);
   
   // Mock data | Dados simulados
@@ -134,7 +136,12 @@ export default function Dashboard() {
         <CardHeader>
           <CardTitle className="flex items-center justify-between">
             <span>Transações Recentes</span>
-            <Button variant="ghost" size="sm" className="text-primary">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="text-primary hover:text-primary/80"
+              onClick={() => navigate('/transactions')}
+            >
               Ver todas
             </Button>
           </CardTitle>
