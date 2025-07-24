@@ -2,6 +2,7 @@
 // Income and expense management with categories | Gestão de receitas e despesas com categorias
 
 import { useState } from 'react';
+import { useTransactions } from '@/contexts/TransactionsContext';
 import { 
   ArrowUpRight, 
   ArrowDownRight, 
@@ -23,15 +24,6 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
-type Transaction = {
-  id: number;
-  title: string;
-  amount: number;
-  type: 'income' | 'expense';
-  date: string;
-  category: string;
-  description?: string;
-};
 
 const categories = {
   income: ['Salário', 'Freelance', 'Investimentos', 'Vendas', 'Outros'],
@@ -42,20 +34,8 @@ export default function Transactions() {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState<'all' | 'income' | 'expense'>('all');
   const [filterCategory, setFilterCategory] = useState('all');
-
-  // Mock transactions data | Dados simulados de transações
-  const [transactions] = useState<Transaction[]>([
-    { id: 1, title: 'Salário Janeiro', amount: 3200.00, type: 'income', date: '2024-01-15', category: 'Salário', description: 'Salário mensal da empresa' },
-    { id: 2, title: 'Supermercado Extra', amount: -234.50, type: 'expense', date: '2024-01-14', category: 'Alimentação', description: 'Compras do mês' },
-    { id: 3, title: 'Gasolina Posto Shell', amount: -120.00, type: 'expense', date: '2024-01-13', category: 'Transporte' },
-    { id: 4, title: 'Freelance Design', amount: 450.00, type: 'income', date: '2024-01-12', category: 'Freelance', description: 'Logo para cliente' },
-    { id: 5, title: 'Aluguel', amount: -800.00, type: 'expense', date: '2024-01-10', category: 'Moradia', description: 'Aluguel apartamento' },
-    { id: 6, title: 'Consultório Médico', amount: -180.00, type: 'expense', date: '2024-01-09', category: 'Saúde' },
-    { id: 7, title: 'Dividendos ITUB4', amount: 25.50, type: 'income', date: '2024-01-08', category: 'Investimentos' },
-    { id: 8, title: 'Uber', amount: -15.80, type: 'expense', date: '2024-01-07', category: 'Transporte' },
-    { id: 9, title: 'Netflix', amount: -25.90, type: 'expense', date: '2024-01-06', category: 'Lazer' },
-    { id: 10, title: 'Venda Celular Usado', amount: 300.00, type: 'income', date: '2024-01-05', category: 'Vendas' },
-  ]);
+  
+  const { transactions, totalIncome, totalExpenses } = useTransactions();
 
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat('pt-BR', {
@@ -82,14 +62,14 @@ export default function Transactions() {
     return matchesSearch && matchesType && matchesCategory;
   });
 
-  // Calculate totals | Calcular totais
-  const totalIncome = filteredTransactions
+  // Use filtered totals for display | Usar totais filtrados para exibição
+  const filteredTotalIncome = filteredTransactions
     .filter(t => t.type === 'income')
     .reduce((sum, t) => sum + t.amount, 0);
   
-  const totalExpenses = Math.abs(filteredTransactions
+  const filteredTotalExpenses = filteredTransactions
     .filter(t => t.type === 'expense')
-    .reduce((sum, t) => sum + t.amount, 0));
+    .reduce((sum, t) => sum + t.amount, 0);
 
   const getCategoryColor = (category: string, type: 'income' | 'expense') => {
     const incomeColors = {
@@ -141,7 +121,7 @@ export default function Transactions() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-success">
-              {formatCurrency(totalIncome)}
+              {formatCurrency(filteredTotalIncome)}
             </div>
             <p className="text-xs text-muted-foreground">
               {filteredTransactions.filter(t => t.type === 'income').length} transações
@@ -156,7 +136,7 @@ export default function Transactions() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-destructive">
-              {formatCurrency(totalExpenses)}
+              {formatCurrency(filteredTotalExpenses)}
             </div>
             <p className="text-xs text-muted-foreground">
               {filteredTransactions.filter(t => t.type === 'expense').length} transações
@@ -171,9 +151,9 @@ export default function Transactions() {
           </CardHeader>
           <CardContent>
             <div className={`text-2xl font-bold ${
-              totalIncome - totalExpenses >= 0 ? 'text-success' : 'text-destructive'
+              filteredTotalIncome - filteredTotalExpenses >= 0 ? 'text-success' : 'text-destructive'
             }`}>
-              {formatCurrency(totalIncome - totalExpenses)}
+              {formatCurrency(filteredTotalIncome - filteredTotalExpenses)}
             </div>
             <p className="text-xs text-muted-foreground">
               {filteredTransactions.length} transações total
@@ -253,11 +233,11 @@ export default function Transactions() {
                 </div>
                 <div className="flex-1 min-w-0">
                   <h3 className="font-medium text-sm sm:text-base">{transaction.title}</h3>
-                  <p className={`text-base sm:text-lg font-bold mt-1 ${
-                    transaction.type === 'income' ? 'text-success' : 'text-destructive'
-                  }`}>
-                    {transaction.type === 'income' ? '+' : ''}
-                    {formatCurrency(Math.abs(transaction.amount))}
+                   <p className={`text-base sm:text-lg font-bold mt-1 ${
+                     transaction.type === 'income' ? 'text-success' : 'text-destructive'
+                   }`}>
+                     {transaction.type === 'income' ? '+' : '-'}
+                     {formatCurrency(transaction.amount)}
                   </p>
                   {transaction.description && (
                     <p className="text-xs sm:text-sm text-muted-foreground mt-1">{transaction.description}</p>

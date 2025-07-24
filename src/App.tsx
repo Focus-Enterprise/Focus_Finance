@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/contexts/ThemeContext";
+import { TransactionsProvider } from "@/contexts/TransactionsContext";
 import { Layout } from "@/components/Layout";
 import { Footer } from "@/components/Footer";
 import Dashboard from "./pages/Dashboard";
@@ -18,7 +19,8 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <ThemeProvider defaultTheme="system" storageKey="focus-ui-theme">
-      <TooltipProvider>
+      <TransactionsProvider>
+        <TooltipProvider>
         <Toaster />
         <Sonner />
         <BrowserRouter>
@@ -34,7 +36,8 @@ const App = () => (
           </Routes>
           <Footer />
         </BrowserRouter>
-      </TooltipProvider>
+        </TooltipProvider>
+      </TransactionsProvider>
     </ThemeProvider>
   </QueryClientProvider>
 );

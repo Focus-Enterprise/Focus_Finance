@@ -2,6 +2,7 @@
 // Responsive layout with bottom navigation for mobile | Layout responsivo com navegação inferior para mobile
 
 import { useState } from 'react';
+import { useTransactions } from '@/contexts/TransactionsContext';
 import { Outlet, useLocation } from 'react-router-dom';
 import { 
   Home, 
