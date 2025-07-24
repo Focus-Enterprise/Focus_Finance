@@ -239,49 +239,41 @@ export default function Transactions() {
             </div>
           ) : (
             filteredTransactions.map((transaction) => (
-              <div key={transaction.id} className="flex flex-col sm:flex-row sm:items-center justify-between p-3 sm:p-4 border rounded-xl hover:bg-accent/50 transition-colors space-y-2 sm:space-y-0">
-                <div className="flex items-start sm:items-center space-x-3">
-                  <div className={`p-2 sm:p-3 rounded-lg flex-shrink-0 ${
-                    transaction.type === 'income' 
-                      ? 'bg-success/10 text-success' 
-                      : 'bg-destructive/10 text-destructive'
+              <div key={transaction.id} className="flex items-start space-x-3 p-3 sm:p-4 border rounded-xl hover:bg-accent/50 transition-colors">
+                <div className={`p-2 sm:p-3 rounded-lg flex-shrink-0 ${
+                  transaction.type === 'income' 
+                    ? 'bg-success/10 text-success' 
+                    : 'bg-destructive/10 text-destructive'
+                }`}>
+                  {transaction.type === 'income' ? (
+                    <ArrowUpRight className="h-4 w-4 sm:h-5 sm:w-5" />
+                  ) : (
+                    <ArrowDownRight className="h-4 w-4 sm:h-5 sm:w-5" />
+                  )}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-medium text-sm sm:text-base">{transaction.title}</h3>
+                  <p className={`text-base sm:text-lg font-bold mt-1 ${
+                    transaction.type === 'income' ? 'text-success' : 'text-destructive'
                   }`}>
-                    {transaction.type === 'income' ? (
-                      <ArrowUpRight className="h-4 w-4 sm:h-5 sm:w-5" />
-                    ) : (
-                      <ArrowDownRight className="h-4 w-4 sm:h-5 sm:w-5" />
-                    )}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between w-full">
-                      <div className="flex-1 min-w-0">
-                        <h3 className="font-medium text-sm sm:text-base truncate">{transaction.title}</h3>
-                        {transaction.description && (
-                          <p className="text-xs sm:text-sm text-muted-foreground truncate">{transaction.description}</p>
-                        )}
-                      </div>
-                      <div className="text-right sm:ml-4 mt-1 sm:mt-0">
-                        <p className={`text-base sm:text-lg font-bold ${
-                          transaction.type === 'income' ? 'text-success' : 'text-destructive'
-                        }`}>
-                          {transaction.type === 'income' ? '+' : ''}
-                          {formatCurrency(Math.abs(transaction.amount))}
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex flex-wrap items-center gap-2 mt-2">
-                      <Badge 
-                        variant="outline" 
-                        className={`text-xs ${getCategoryColor(transaction.category, transaction.type)}`}
-                      >
-                        <Tag className="h-3 w-3 mr-1" />
-                        {transaction.category}
-                      </Badge>
-                      <span className="text-xs text-muted-foreground flex items-center gap-1">
-                        <Calendar className="h-3 w-3" />
-                        {formatDate(transaction.date)}
-                      </span>
-                    </div>
+                    {transaction.type === 'income' ? '+' : ''}
+                    {formatCurrency(Math.abs(transaction.amount))}
+                  </p>
+                  {transaction.description && (
+                    <p className="text-xs sm:text-sm text-muted-foreground mt-1">{transaction.description}</p>
+                  )}
+                  <div className="flex flex-wrap items-center gap-2 mt-2">
+                    <Badge 
+                      variant="outline" 
+                      className={`text-xs ${getCategoryColor(transaction.category, transaction.type)}`}
+                    >
+                      <Tag className="h-3 w-3 mr-1" />
+                      {transaction.category}
+                    </Badge>
+                    <span className="text-xs text-muted-foreground flex items-center gap-1">
+                      <Calendar className="h-3 w-3" />
+                      {formatDate(transaction.date)}
+                    </span>
                   </div>
                 </div>
               </div>
