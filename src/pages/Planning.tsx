@@ -18,7 +18,7 @@ import { Badge } from '@/components/ui/badge';
 
 export default function Planning() {
   // Mock data for goals | Dados simulados para metas
-  const [goals] = useState([
+  const [goals, setGoals] = useState([
     {
       id: 1,
       title: 'Viagem para Europa',
@@ -98,6 +98,17 @@ export default function Planning() {
     }
   };
 
+  const handleEditGoal = (goalId: number) => {
+    console.log('Editando meta:', goalId);
+    // Aqui você pode implementar a lógica de edição
+  };
+
+  const handleDeleteGoal = (goalId: number) => {
+    const updatedGoals = goals.filter(goal => goal.id !== goalId);
+    setGoals(updatedGoals);
+    console.log('Meta excluída:', goalId);
+  };
+
   const totalTargetAmount = goals.reduce((sum, goal) => sum + goal.targetAmount, 0);
   const totalCurrentAmount = goals.reduce((sum, goal) => sum + goal.currentAmount, 0);
   const overallProgress = (totalCurrentAmount / totalTargetAmount) * 100;
@@ -105,19 +116,13 @@ export default function Planning() {
   return (
     <div className="container py-6 space-y-6">
       {/* Header | Cabeçalho */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div>
-          <h1 className="text-2xl md:text-3xl font-bold text-foreground">
-            Planejamento Financeiro
-          </h1>
-          <p className="text-muted-foreground">
-            Defina e acompanhe suas metas financeiras
-          </p>
-        </div>
-        <Button className="bg-gradient-primary hover:shadow-green transition-all">
-          <Plus className="h-4 w-4 mr-2" />
-          Nova Meta
-        </Button>
+      <div>
+        <h1 className="text-2xl md:text-3xl font-bold text-foreground">
+          Planejamento Financeiro
+        </h1>
+        <p className="text-muted-foreground">
+          Defina e acompanhe suas metas financeiras
+        </p>
       </div>
 
       {/* Overview Cards | Cartões de Visão Geral */}
@@ -182,10 +187,20 @@ export default function Planning() {
                             {getPriorityLabel(goal.priority)}
                           </Badge>
                           <div className="flex gap-1">
-                            <Button variant="ghost" size="icon" className="h-8 w-8">
+                            <Button 
+                              variant="ghost" 
+                              size="icon" 
+                              className="h-8 w-8"
+                              onClick={() => handleEditGoal(goal.id)}
+                            >
                               <Edit className="h-4 w-4" />
                             </Button>
-                            <Button variant="ghost" size="icon" className="h-8 w-8 text-destructive hover:text-destructive">
+                            <Button 
+                              variant="ghost" 
+                              size="icon" 
+                              className="h-8 w-8 text-destructive hover:text-destructive"
+                              onClick={() => handleDeleteGoal(goal.id)}
+                            >
                               <Trash2 className="h-4 w-4" />
                             </Button>
                           </div>

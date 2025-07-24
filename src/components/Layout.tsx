@@ -2,7 +2,7 @@
 // Responsive layout with bottom navigation for mobile | Layout responsivo com navegação inferior para mobile
 
 import { useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import { 
   Home, 
   Target, 
@@ -32,6 +32,8 @@ const navigation = [
 export function Layout() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [transactionType, setTransactionType] = useState('');
+  const location = useLocation();
+  const isPlanning = location.pathname === '/planning';
   
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -119,10 +121,10 @@ export function Layout() {
       {/* Floating Action Button - Add Transaction | Botão Flutuante - Adicionar Transação */}
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
         <DialogTrigger asChild>
-          <Button
+            <Button
             size="icon"
             className="fixed bottom-20 right-4 md:bottom-8 h-14 w-14 rounded-full shadow-strong z-40 bg-gradient-primary hover:shadow-green transition-all hover:scale-105"
-            aria-label="Adicionar nova transação"
+            aria-label={isPlanning ? "Adicionar nova meta" : "Adicionar nova transação"}
           >
             <Plus className="h-6 w-6" />
           </Button>
@@ -130,61 +132,141 @@ export function Layout() {
         <DialogContent className="sm:max-w-md max-w-[calc(100vw-2rem)] mx-auto rounded-2xl border-0 shadow-2xl bg-background/95 backdrop-blur-md">
           <DialogHeader className="space-y-3">
             <DialogTitle className="text-xl font-semibold text-center bg-gradient-primary bg-clip-text text-transparent">
-              Nova Transação
+              {isPlanning ? 'Nova Meta' : 'Nova Transação'}
             </DialogTitle>
           </DialogHeader>
           
           <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="space-y-2">
-              <Label htmlFor="type" className="text-sm font-medium">Tipo</Label>
-              <Select value={transactionType} onValueChange={setTransactionType}>
-                <SelectTrigger className="rounded-xl border-border/50 focus:border-primary">
-                  <SelectValue placeholder="Selecione o tipo" />
-                </SelectTrigger>
-                <SelectContent className="rounded-xl">
-                  <SelectItem value="income">💰 Receita</SelectItem>
-                  <SelectItem value="expense">💸 Despesa</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
+            {isPlanning ? (
+              // Formulário para Nova Meta
+              <>
+                <div className="space-y-2">
+                  <Label htmlFor="title" className="text-sm font-medium">Título da Meta</Label>
+                  <Input 
+                    id="title"
+                    placeholder="Ex: Viagem para Europa, Reserva de Emergência..."
+                    className="rounded-xl border-border/50 focus:border-primary"
+                  />
+                </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="description" className="text-sm font-medium">Descrição</Label>
-              <Input 
-                id="description"
-                placeholder="Ex: Salário, Compras..."
-                className="rounded-xl border-border/50 focus:border-primary"
-              />
-            </div>
+                <div className="space-y-2">
+                  <Label htmlFor="targetAmount" className="text-sm font-medium">Valor Alvo</Label>
+                  <Input 
+                    id="targetAmount"
+                    type="number"
+                    step="0.01"
+                    placeholder="0,00"
+                    className="rounded-xl border-border/50 focus:border-primary"
+                  />
+                </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="amount" className="text-sm font-medium">Valor</Label>
-              <Input 
-                id="amount"
-                type="number"
-                step="0.01"
-                placeholder="0,00"
-                className="rounded-xl border-border/50 focus:border-primary"
-              />
-            </div>
+                <div className="space-y-2">
+                  <Label htmlFor="currentAmount" className="text-sm font-medium">Valor Atual</Label>
+                  <Input 
+                    id="currentAmount"
+                    type="number"
+                    step="0.01"
+                    placeholder="0,00"
+                    className="rounded-xl border-border/50 focus:border-primary"
+                  />
+                </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="category" className="text-sm font-medium">Categoria</Label>
-              <Select>
-                <SelectTrigger className="rounded-xl border-border/50 focus:border-primary">
-                  <SelectValue placeholder="Selecione uma categoria" />
-                </SelectTrigger>
-                <SelectContent className="rounded-xl">
-                  <SelectItem value="food">🍽️ Alimentação</SelectItem>
-                  <SelectItem value="transport">🚗 Transporte</SelectItem>
-                  <SelectItem value="health">🏥 Saúde</SelectItem>
-                  <SelectItem value="education">📚 Educação</SelectItem>
-                  <SelectItem value="entertainment">🎬 Entretenimento</SelectItem>
-                  <SelectItem value="salary">💼 Salário</SelectItem>
-                  <SelectItem value="investment">📈 Investimento</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
+                <div className="space-y-2">
+                  <Label htmlFor="deadline" className="text-sm font-medium">Data Limite</Label>
+                  <Input 
+                    id="deadline"
+                    type="date"
+                    className="rounded-xl border-border/50 focus:border-primary"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="category" className="text-sm font-medium">Categoria</Label>
+                  <Select>
+                    <SelectTrigger className="rounded-xl border-border/50 focus:border-primary">
+                      <SelectValue placeholder="Selecione uma categoria" />
+                    </SelectTrigger>
+                    <SelectContent className="rounded-xl">
+                      <SelectItem value="viagem">🌎 Viagem</SelectItem>
+                      <SelectItem value="seguranca">🛡️ Segurança</SelectItem>
+                      <SelectItem value="tecnologia">💻 Tecnologia</SelectItem>
+                      <SelectItem value="educacao">📚 Educação</SelectItem>
+                      <SelectItem value="casa">🏠 Casa</SelectItem>
+                      <SelectItem value="veiculo">🚗 Veículo</SelectItem>
+                      <SelectItem value="investimento">📈 Investimento</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="priority" className="text-sm font-medium">Prioridade</Label>
+                  <Select>
+                    <SelectTrigger className="rounded-xl border-border/50 focus:border-primary">
+                      <SelectValue placeholder="Selecione a prioridade" />
+                    </SelectTrigger>
+                    <SelectContent className="rounded-xl">
+                      <SelectItem value="high">🔴 Alta</SelectItem>
+                      <SelectItem value="medium">🟡 Média</SelectItem>
+                      <SelectItem value="low">🟢 Baixa</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </>
+            ) : (
+              // Formulário para Nova Transação
+              <>
+                <div className="space-y-2">
+                  <Label htmlFor="type" className="text-sm font-medium">Tipo</Label>
+                  <Select value={transactionType} onValueChange={setTransactionType}>
+                    <SelectTrigger className="rounded-xl border-border/50 focus:border-primary">
+                      <SelectValue placeholder="Selecione o tipo" />
+                    </SelectTrigger>
+                    <SelectContent className="rounded-xl">
+                      <SelectItem value="income">💰 Receita</SelectItem>
+                      <SelectItem value="expense">💸 Despesa</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="description" className="text-sm font-medium">Descrição</Label>
+                  <Input 
+                    id="description"
+                    placeholder="Ex: Salário, Compras..."
+                    className="rounded-xl border-border/50 focus:border-primary"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="amount" className="text-sm font-medium">Valor</Label>
+                  <Input 
+                    id="amount"
+                    type="number"
+                    step="0.01"
+                    placeholder="0,00"
+                    className="rounded-xl border-border/50 focus:border-primary"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="category" className="text-sm font-medium">Categoria</Label>
+                  <Select>
+                    <SelectTrigger className="rounded-xl border-border/50 focus:border-primary">
+                      <SelectValue placeholder="Selecione uma categoria" />
+                    </SelectTrigger>
+                    <SelectContent className="rounded-xl">
+                      <SelectItem value="food">🍽️ Alimentação</SelectItem>
+                      <SelectItem value="transport">🚗 Transporte</SelectItem>
+                      <SelectItem value="health">🏥 Saúde</SelectItem>
+                      <SelectItem value="education">📚 Educação</SelectItem>
+                      <SelectItem value="entertainment">🎬 Entretenimento</SelectItem>
+                      <SelectItem value="salary">💼 Salário</SelectItem>
+                      <SelectItem value="investment">📈 Investimento</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </>
+            )}
 
             <div className="flex gap-3 pt-4">
               <Button 
