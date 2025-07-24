@@ -338,26 +338,26 @@ export default function Planning() {
 
       {/* Modal de Edição */}
       <Dialog open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
-        <DialogContent className="sm:max-w-md max-w-[calc(100vw-2rem)] mx-auto rounded-2xl border-0 shadow-2xl bg-background/95 backdrop-blur-md">
-          <DialogHeader className="space-y-3">
-            <DialogTitle className="text-xl font-semibold text-center bg-gradient-primary bg-clip-text text-transparent">
+        <DialogContent className="sm:max-w-md max-w-[calc(100vw-2rem)] max-h-[80vh] overflow-y-auto mx-auto rounded-2xl border-0 shadow-2xl bg-background/95 backdrop-blur-md">
+          <DialogHeader className="space-y-2">
+            <DialogTitle className="text-lg font-semibold text-center bg-gradient-primary bg-clip-text text-transparent">
               Editar Meta
             </DialogTitle>
           </DialogHeader>
           
-          <div className="space-y-6">
-            <div className="space-y-2">
+          <div className="space-y-4">
+            <div className="space-y-1">
               <Label htmlFor="edit-title" className="text-sm font-medium">Título da Meta</Label>
               <Input 
                 id="edit-title"
                 value={editForm.title}
                 onChange={(e) => setEditForm({...editForm, title: e.target.value})}
-                placeholder="Ex: Viagem para Europa, Reserva de Emergência..."
-                className="rounded-xl border-border/50 focus:border-primary"
+                placeholder="Ex: Viagem para Europa..."
+                className="rounded-xl border-border/50 focus:border-primary h-9"
               />
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-1">
               <Label htmlFor="edit-targetAmount" className="text-sm font-medium">Valor Alvo</Label>
               <Input 
                 id="edit-targetAmount"
@@ -366,11 +366,11 @@ export default function Planning() {
                 value={editForm.targetAmount}
                 onChange={(e) => setEditForm({...editForm, targetAmount: e.target.value})}
                 placeholder="0,00"
-                className="rounded-xl border-border/50 focus:border-primary"
+                className="rounded-xl border-border/50 focus:border-primary h-9"
               />
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-1">
               <Label htmlFor="edit-currentAmount" className="text-sm font-medium">Valor Atual</Label>
               <Input 
                 id="edit-currentAmount"
@@ -379,25 +379,25 @@ export default function Planning() {
                 value={editForm.currentAmount}
                 onChange={(e) => setEditForm({...editForm, currentAmount: e.target.value})}
                 placeholder="0,00"
-                className="rounded-xl border-border/50 focus:border-primary"
+                className="rounded-xl border-border/50 focus:border-primary h-9"
               />
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-1">
               <Label htmlFor="edit-deadline" className="text-sm font-medium">Data Limite</Label>
               <Input 
                 id="edit-deadline"
                 type="date"
                 value={editForm.deadline}
                 onChange={(e) => setEditForm({...editForm, deadline: e.target.value})}
-                className="rounded-xl border-border/50 focus:border-primary"
+                className="rounded-xl border-border/50 focus:border-primary h-9"
               />
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-1">
               <Label htmlFor="edit-category" className="text-sm font-medium">Categoria</Label>
               <Select value={editForm.category} onValueChange={(value) => setEditForm({...editForm, category: value})}>
-                <SelectTrigger className="rounded-xl border-border/50 focus:border-primary">
+                <SelectTrigger className="rounded-xl border-border/50 focus:border-primary h-9">
                   <SelectValue placeholder="Selecione uma categoria" />
                 </SelectTrigger>
                 <SelectContent className="rounded-xl">
@@ -412,10 +412,10 @@ export default function Planning() {
               </Select>
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-1">
               <Label htmlFor="edit-priority" className="text-sm font-medium">Prioridade</Label>
               <Select value={editForm.priority} onValueChange={(value) => setEditForm({...editForm, priority: value})}>
-                <SelectTrigger className="rounded-xl border-border/50 focus:border-primary">
+                <SelectTrigger className="rounded-xl border-border/50 focus:border-primary h-9">
                   <SelectValue placeholder="Selecione a prioridade" />
                 </SelectTrigger>
                 <SelectContent className="rounded-xl">
@@ -426,7 +426,7 @@ export default function Planning() {
               </Select>
             </div>
 
-            <div className="flex gap-3 pt-4">
+            <div className="flex gap-3 pt-2">
               <Button 
                 type="button" 
                 variant="outline"

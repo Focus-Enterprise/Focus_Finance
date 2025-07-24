@@ -131,61 +131,61 @@ export function Layout() {
             <Plus className="h-6 w-6" />
           </Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-md max-w-[calc(100vw-2rem)] mx-auto rounded-2xl border-0 shadow-2xl bg-background/95 backdrop-blur-md">
-          <DialogHeader className="space-y-3">
-            <DialogTitle className="text-xl font-semibold text-center bg-gradient-primary bg-clip-text text-transparent">
+        <DialogContent className="sm:max-w-md max-w-[calc(100vw-2rem)] max-h-[80vh] overflow-y-auto mx-auto rounded-2xl border-0 shadow-2xl bg-background/95 backdrop-blur-md">
+          <DialogHeader className="space-y-2">
+            <DialogTitle className="text-lg font-semibold text-center bg-gradient-primary bg-clip-text text-transparent">
               {isPlanning ? 'Nova Meta' : 'Nova Transação'}
             </DialogTitle>
           </DialogHeader>
           
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-4">
             {isPlanning ? (
               // Formulário para Nova Meta
               <>
-                <div className="space-y-2">
+                <div className="space-y-1">
                   <Label htmlFor="title" className="text-sm font-medium">Título da Meta</Label>
                   <Input 
                     id="title"
-                    placeholder="Ex: Viagem para Europa, Reserva de Emergência..."
-                    className="rounded-xl border-border/50 focus:border-primary"
+                    placeholder="Ex: Viagem para Europa..."
+                    className="rounded-xl border-border/50 focus:border-primary h-9"
                   />
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-1">
                   <Label htmlFor="targetAmount" className="text-sm font-medium">Valor Alvo</Label>
                   <Input 
                     id="targetAmount"
                     type="number"
                     step="0.01"
                     placeholder="0,00"
-                    className="rounded-xl border-border/50 focus:border-primary"
+                    className="rounded-xl border-border/50 focus:border-primary h-9"
                   />
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-1">
                   <Label htmlFor="currentAmount" className="text-sm font-medium">Valor Atual</Label>
                   <Input 
                     id="currentAmount"
                     type="number"
                     step="0.01"
                     placeholder="0,00"
-                    className="rounded-xl border-border/50 focus:border-primary"
+                    className="rounded-xl border-border/50 focus:border-primary h-9"
                   />
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-1">
                   <Label htmlFor="deadline" className="text-sm font-medium">Data Limite</Label>
                   <Input 
                     id="deadline"
                     type="date"
-                    className="rounded-xl border-border/50 focus:border-primary"
+                    className="rounded-xl border-border/50 focus:border-primary h-9"
                   />
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-1">
                   <Label htmlFor="category" className="text-sm font-medium">Categoria</Label>
                   <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                    <SelectTrigger className="rounded-xl border-border/50 focus:border-primary">
+                    <SelectTrigger className="rounded-xl border-border/50 focus:border-primary h-9">
                       <SelectValue placeholder="Selecione uma categoria" />
                     </SelectTrigger>
                     <SelectContent className="rounded-xl">
@@ -205,15 +205,15 @@ export function Layout() {
                       placeholder="Digite a categoria personalizada..."
                       value={customCategory}
                       onChange={(e) => setCustomCategory(e.target.value)}
-                      className="rounded-xl border-border/50 focus:border-primary mt-2"
+                      className="rounded-xl border-border/50 focus:border-primary h-9 mt-1"
                     />
                   )}
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-1">
                   <Label htmlFor="priority" className="text-sm font-medium">Prioridade</Label>
                   <Select>
-                    <SelectTrigger className="rounded-xl border-border/50 focus:border-primary">
+                    <SelectTrigger className="rounded-xl border-border/50 focus:border-primary h-9">
                       <SelectValue placeholder="Selecione a prioridade" />
                     </SelectTrigger>
                     <SelectContent className="rounded-xl">
@@ -227,10 +227,10 @@ export function Layout() {
             ) : (
               // Formulário para Nova Transação
               <>
-                <div className="space-y-2">
+                <div className="space-y-1">
                   <Label htmlFor="type" className="text-sm font-medium">Tipo</Label>
                   <Select value={transactionType} onValueChange={setTransactionType}>
-                    <SelectTrigger className="rounded-xl border-border/50 focus:border-primary">
+                    <SelectTrigger className="rounded-xl border-border/50 focus:border-primary h-9">
                       <SelectValue placeholder="Selecione o tipo" />
                     </SelectTrigger>
                     <SelectContent className="rounded-xl">
@@ -240,30 +240,30 @@ export function Layout() {
                   </Select>
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-1">
                   <Label htmlFor="description" className="text-sm font-medium">Descrição</Label>
                   <Input 
                     id="description"
                     placeholder="Ex: Salário, Compras..."
-                    className="rounded-xl border-border/50 focus:border-primary"
+                    className="rounded-xl border-border/50 focus:border-primary h-9"
                   />
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-1">
                   <Label htmlFor="amount" className="text-sm font-medium">Valor</Label>
                   <Input 
                     id="amount"
                     type="number"
                     step="0.01"
                     placeholder="0,00"
-                    className="rounded-xl border-border/50 focus:border-primary"
+                    className="rounded-xl border-border/50 focus:border-primary h-9"
                   />
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-1">
                   <Label htmlFor="category" className="text-sm font-medium">Categoria</Label>
                   <Select>
-                    <SelectTrigger className="rounded-xl border-border/50 focus:border-primary">
+                    <SelectTrigger className="rounded-xl border-border/50 focus:border-primary h-9">
                       <SelectValue placeholder="Selecione uma categoria" />
                     </SelectTrigger>
                     <SelectContent className="rounded-xl">
@@ -280,7 +280,7 @@ export function Layout() {
               </>
             )}
 
-            <div className="flex gap-3 pt-4">
+            <div className="flex gap-3 pt-2">
               <Button 
                 type="button" 
                 variant="outline"
