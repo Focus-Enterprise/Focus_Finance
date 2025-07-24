@@ -100,7 +100,7 @@ export function Layout() {
 
       {/* Mobile Bottom Navigation | Navegação Inferior Mobile */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-background border-t">
-        <nav className="flex items-center justify-around h-16 px-2" role="navigation" aria-label="Navegação mobile">
+        <nav className="flex items-center justify-around h-16 px-4 gap-2" role="navigation" aria-label="Navegação mobile">
           {navigation.map((item) => (
             <NavLink
               key={item.name}
@@ -108,7 +108,7 @@ export function Layout() {
               end={item.href === '/'}
               className={({ isActive }) =>
                 cn(
-                  'flex flex-col items-center justify-center space-y-1 py-1 px-2 rounded-lg transition-colors min-w-0 flex-1',
+                  'flex flex-col items-center justify-center space-y-1 py-2 px-3 rounded-lg transition-colors min-w-0 flex-1',
                   isActive 
                     ? 'text-primary bg-accent' 
                     : 'text-muted-foreground hover:text-primary hover:bg-accent/50'
