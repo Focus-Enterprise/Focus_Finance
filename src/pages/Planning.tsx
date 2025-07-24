@@ -594,6 +594,16 @@ export default function Planning() {
           </div>
         </DialogContent>
       </Dialog>
+
+      {/* Floating Action Button */}
+      <Button
+        onClick={() => setIsAddModalOpen(true)}
+        className="fixed bottom-6 right-6 h-14 w-14 rounded-full bg-gradient-primary hover:opacity-90 shadow-strong z-50"
+        size="icon"
+        aria-label="Adicionar nova meta"
+      >
+        <Plus className="h-6 w-6" />
+      </Button>
     </div>
   );
 }
