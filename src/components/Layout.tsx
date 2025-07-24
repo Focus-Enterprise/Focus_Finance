@@ -262,7 +262,7 @@ export function Layout() {
 
                 <div className="space-y-1">
                   <Label htmlFor="category" className="text-sm font-medium">Categoria</Label>
-                  <Select>
+                  <Select value={selectedCategory} onValueChange={setSelectedCategory}>
                     <SelectTrigger className="rounded-xl border-border/50 focus:border-primary h-9">
                       <SelectValue placeholder="Selecione uma categoria" />
                     </SelectTrigger>
@@ -274,8 +274,18 @@ export function Layout() {
                       <SelectItem value="entertainment">🎬 Entretenimento</SelectItem>
                       <SelectItem value="salary">💼 Salário</SelectItem>
                       <SelectItem value="investment">📈 Investimento</SelectItem>
+                      <SelectItem value="outro">✏️ Outro</SelectItem>
                     </SelectContent>
                   </Select>
+                  {selectedCategory === 'outro' && (
+                    <Input 
+                      id="customCategory"
+                      placeholder="Digite a categoria personalizada..."
+                      value={customCategory}
+                      onChange={(e) => setCustomCategory(e.target.value)}
+                      className="rounded-xl border-border/50 focus:border-primary h-9 mt-1"
+                    />
+                  )}
                 </div>
               </>
             )}
