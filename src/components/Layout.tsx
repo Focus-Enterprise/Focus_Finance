@@ -127,7 +127,7 @@ export function Layout() {
             <Plus className="h-6 w-6" />
           </Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-md w-[calc(100%-2rem)] mx-4 rounded-2xl border-0 shadow-2xl bg-background/95 backdrop-blur-md">
+        <DialogContent className="sm:max-w-md max-w-[calc(100vw-2rem)] mx-auto rounded-2xl border-0 shadow-2xl bg-background/95 backdrop-blur-md">
           <DialogHeader className="space-y-3">
             <DialogTitle className="text-xl font-semibold text-center bg-gradient-primary bg-clip-text text-transparent">
               Nova Transação
