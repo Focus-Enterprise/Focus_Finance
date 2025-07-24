@@ -52,14 +52,16 @@ export function TransactionsProvider({ children }: { children: ReactNode }) {
 
   const balance = totalIncome - totalExpenses;
 
+  const value = {
+    transactions,
+    addTransaction,
+    totalIncome,
+    totalExpenses,
+    balance
+  };
+
   return (
-    <TransactionsContext.Provider value={{
-      transactions,
-      addTransaction,
-      totalIncome,
-      totalExpenses,
-      balance
-    }}>
+    <TransactionsContext.Provider value={value}>
       {children}
     </TransactionsContext.Provider>
   );
