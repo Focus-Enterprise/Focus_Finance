@@ -79,7 +79,7 @@ export default function Dashboard() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-success">
-              {formatCurrency(totalIncome)}
+              {showBalance ? formatCurrency(totalIncome) : '••••••'}
             </div>
             <p className="text-xs text-muted-foreground">
               +8.2% em relação ao mês passado
@@ -94,7 +94,7 @@ export default function Dashboard() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-destructive">
-              {formatCurrency(totalExpenses)}
+              {showBalance ? formatCurrency(totalExpenses) : '••••••'}
             </div>
             <p className="text-xs text-muted-foreground">
               +2.1% em relação ao mês passado
@@ -109,7 +109,7 @@ export default function Dashboard() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-primary">
-              {formatCurrency(totalIncome - totalExpenses)}
+              {showBalance ? formatCurrency(totalIncome - totalExpenses) : '••••••'}
             </div>
             <div className="w-full bg-muted rounded-full h-2 mt-2">
               <div 
