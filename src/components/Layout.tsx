@@ -2,6 +2,7 @@
 // Responsive layout with bottom navigation for mobile | Layout responsivo com navegação inferior para mobile
 
 import { useState } from 'react';
+import { useTransactions } from '@/contexts/TransactionsContext';
 import { Outlet, useLocation } from 'react-router-dom';
 import { 
   Home, 
@@ -34,17 +35,51 @@ export function Layout() {
   const [transactionType, setTransactionType] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [customCategory, setCustomCategory] = useState('');
+  const [title, setTitle] = useState('');
+  const [amount, setAmount] = useState('');
+  const [description, setDescription] = useState('');
   const location = useLocation();
   const isPlanning = location.pathname === '/planning';
   
   // Show floating button only on Dashboard and Planning pages
   const showFloatingButton = location.pathname === '/' || location.pathname === '/planning';
   
+  const { addTransaction } = useTransactions();
+  
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Aqui você pode implementar a lógica para salvar a transação
-    console.log('Nova transação adicionada');
+    
+    if (isPlanning) {
+      console.log('Nova meta adicionada');
+      setIsModalOpen(false);
+      return;
+    }
+
+    if (!title || !amount || !selectedCategory || !transactionType) {
+      return;
+    }
+
+    const finalCategory = selectedCategory === 'outro' ? customCategory : selectedCategory;
+    
+    addTransaction({
+      title,
+      amount: parseFloat(amount),
+      type: transactionType as 'income' | 'expense',
+      date: new Date().toISOString().split('T')[0],
+      category: finalCategory,
+      description: description || undefined
+    });
+
+    // Reset form
+    setTitle('');
+    setAmount('');
+    setDescription('');
+    setSelectedCategory('');
+    setCustomCategory('');
+    setTransactionType('');
     setIsModalOpen(false);
+    
+    console.log("Nova transação adicionada");
   };
   return (
     <div className="min-h-screen bg-background">
@@ -249,6 +284,8 @@ export function Layout() {
                   <Input 
                     id="description"
                     placeholder="Ex: Salário, Compras..."
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
                     className="rounded-xl border-border/50 focus:border-primary h-9"
                   />
                 </div>
@@ -260,6 +297,8 @@ export function Layout() {
                     type="number"
                     step="0.01"
                     placeholder="0,00"
+                    value={amount}
+                    onChange={(e) => setAmount(e.target.value)}
                     className="rounded-xl border-border/50 focus:border-primary h-9"
                   />
                 </div>
@@ -290,6 +329,17 @@ export function Layout() {
                       className="rounded-xl border-border/50 focus:border-primary h-9 mt-1"
                     />
                   )}
+                </div>
+
+                <div className="space-y-1">
+                  <Label htmlFor="additionalDescription" className="text-sm font-medium">Descrição adicional (opcional)</Label>
+                  <Input 
+                    id="additionalDescription"
+                    placeholder="Adicione detalhes sobre a transação..."
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    className="rounded-xl border-border/50 focus:border-primary h-9"
+                  />
                 </div>
               </>
             )}
