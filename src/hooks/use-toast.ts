@@ -1,32 +1,44 @@
-import * as React from "react"
+// Toast Hook Implementation | Implementação do Hook de Toast
+// Manages toast notifications throughout the application | Gerencia notificações toast em toda a aplicação
 
+import * as React from "react" // React core library | Biblioteca principal do React
+
+// Toast component types import | Importação dos tipos do componente Toast
 import type {
-  ToastActionElement,
-  ToastProps,
+  ToastActionElement, // Type for toast action buttons | Tipo para botões de ação do toast
+  ToastProps, // Toast component props type | Tipo das props do componente Toast
 } from "@/components/ui/toast"
 
-const TOAST_LIMIT = 1
-const TOAST_REMOVE_DELAY = 1000000
+// Toast configuration constants | Constantes de configuração do toast
+const TOAST_LIMIT = 1 // Maximum number of toasts shown simultaneously | Número máximo de toasts mostrados simultaneamente
+const TOAST_REMOVE_DELAY = 1000000 // Delay before removing toast from DOM (ms) | Atraso antes de remover toast do DOM (ms)
 
+// Extended toast type with additional properties | Tipo de toast estendido com propriedades adicionais
 type ToasterToast = ToastProps & {
-  id: string
-  title?: React.ReactNode
-  description?: React.ReactNode
-  action?: ToastActionElement
+  id: string // Unique identifier for each toast | Identificador único para cada toast
+  title?: React.ReactNode // Optional toast title | Título opcional do toast
+  description?: React.ReactNode // Optional toast description | Descrição opcional do toast
+  action?: ToastActionElement // Optional action button | Botão de ação opcional
 }
 
+// Action types for toast state management | Tipos de ação para gerenciamento de estado do toast
 const actionTypes = {
-  ADD_TOAST: "ADD_TOAST",
-  UPDATE_TOAST: "UPDATE_TOAST",
-  DISMISS_TOAST: "DISMISS_TOAST",
-  REMOVE_TOAST: "REMOVE_TOAST",
+  ADD_TOAST: "ADD_TOAST", // Add new toast action | Ação de adicionar novo toast
+  UPDATE_TOAST: "UPDATE_TOAST", // Update existing toast action | Ação de atualizar toast existente
+  DISMISS_TOAST: "DISMISS_TOAST", // Dismiss toast action | Ação de dispensar toast
+  REMOVE_TOAST: "REMOVE_TOAST", // Remove toast from DOM action | Ação de remover toast do DOM
 } as const
 
+// Global counter for generating unique IDs | Contador global para gerar IDs únicos
 let count = 0
 
+/**
+ * Generates unique ID for each toast
+ * Gera ID único para cada toast
+ */
 function genId() {
-  count = (count + 1) % Number.MAX_SAFE_INTEGER
-  return count.toString()
+  count = (count + 1) % Number.MAX_SAFE_INTEGER // Increment with overflow protection | Incrementa com proteção contra overflow
+  return count.toString() // Return as string | Retorna como string
 }
 
 type ActionType = typeof actionTypes
