@@ -14,12 +14,14 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useTransactions } from '@/contexts/TransactionsContext';
 import { useVisibility } from '@/contexts/VisibilityContext';
+import { useUserProfile } from '@/contexts/UserProfileContext';
 import { useNavigate } from 'react-router-dom';
 
 export default function Dashboard() {
   const navigate = useNavigate();
   const { transactions, totalIncome, totalExpenses, balance } = useTransactions();
   const { showBalance, toggleVisibility } = useVisibility();
+  const { userProfile } = useUserProfile();
   const monthlyGoal = 5000.00;
   const goalProgress = ((totalIncome - totalExpenses) / monthlyGoal) * 100;
 
@@ -38,7 +40,7 @@ export default function Dashboard() {
       {/* Welcome Section | Seção de Boas-vindas */}
       <div className="space-y-2">
         <h1 className="text-2xl md:text-3xl font-bold text-foreground">
-          Olá! 👋
+          Olá, {userProfile.name.split(' ')[0]}! 👋
         </h1>
         <p className="text-muted-foreground">
           Aqui está um resumo das suas finanças hoje

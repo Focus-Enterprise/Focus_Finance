@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { TransactionsProvider } from "@/contexts/TransactionsContext";
 import { VisibilityProvider } from "@/contexts/VisibilityContext";
+import { UserProfileProvider } from "@/contexts/UserProfileContext";
 import { Layout } from "@/components/Layout";
 import { Footer } from "@/components/Footer";
 import Dashboard from "./pages/Dashboard";
@@ -21,8 +22,9 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <ThemeProvider defaultTheme="system" storageKey="focus-ui-theme">
-      <VisibilityProvider>
-        <TransactionsProvider>
+      <UserProfileProvider>
+        <VisibilityProvider>
+          <TransactionsProvider>
           <TooltipProvider>
         <Toaster />
         <Sonner />
@@ -43,6 +45,7 @@ const App = () => (
           </TooltipProvider>
         </TransactionsProvider>
       </VisibilityProvider>
+    </UserProfileProvider>
     </ThemeProvider>
   </QueryClientProvider>
 );

@@ -2,6 +2,7 @@
 // User profile, preferences and contact | Perfil do usuário, preferências e contato
 
 import { useState } from 'react';
+import { useUserProfile } from '@/contexts/UserProfileContext';
 import { 
   User, 
   Mail, 
@@ -26,11 +27,8 @@ import { useToast } from '@/hooks/use-toast';
 export default function Settings() {
   const { toast } = useToast();
   const [isEditing, setIsEditing] = useState(false);
-  const [userProfile, setUserProfile] = useState({
-    name: 'João Silva',
-    email: 'joao.silva@email.com',
-    phone: '(11) 99999-9999'
-  });
+  const { userProfile, updateUserProfile } = useUserProfile();
+  const [localProfile, setLocalProfile] = useState(userProfile);
 
   const [notifications, setNotifications] = useState({
     emailAlerts: true,
@@ -40,6 +38,7 @@ export default function Settings() {
   });
 
   const handleSaveProfile = () => {
+    updateUserProfile(localProfile);
     setIsEditing(false);
     toast({
       title: "Perfil atualizado",
@@ -130,16 +129,16 @@ export default function Settings() {
                   <Label htmlFor="name">Nome completo</Label>
                   <Input
                     id="name"
-                    value={userProfile.name}
-                    onChange={(e) => setUserProfile(prev => ({ ...prev, name: e.target.value }))}
+                    value={localProfile.name}
+                    onChange={(e) => setLocalProfile(prev => ({ ...prev, name: e.target.value }))}
                   />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="phone">Telefone</Label>
                   <Input
                     id="phone"
-                    value={userProfile.phone}
-                    onChange={(e) => setUserProfile(prev => ({ ...prev, phone: e.target.value }))}
+                    value={localProfile.phone}
+                    onChange={(e) => setLocalProfile(prev => ({ ...prev, phone: e.target.value }))}
                   />
                 </div>
               </div>
@@ -148,8 +147,8 @@ export default function Settings() {
                 <Input
                   id="email"
                   type="email"
-                  value={userProfile.email}
-                  onChange={(e) => setUserProfile(prev => ({ ...prev, email: e.target.value }))}
+                  value={localProfile.email}
+                  onChange={(e) => setLocalProfile(prev => ({ ...prev, email: e.target.value }))}
                 />
               </div>
               <Button onClick={handleSaveProfile} className="bg-gradient-primary">
